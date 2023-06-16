@@ -89,7 +89,7 @@ struct Home_Previews: PreviewProvider {
 
 
 struct TaskView: View {
-    var task: Task
+    @ObservedObject var task: Task
     var isPendintTask: Bool
     
     @Environment(\.self) private var env
@@ -98,7 +98,8 @@ struct TaskView: View {
     var body: some View {
         HStack(spacing: 12) {
             Button {
-                
+                task.isCompleted.toggle()
+                save()
 
             } label: {
                 Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
@@ -122,16 +123,25 @@ struct TaskView: View {
                     save()
                 }
                 
+                Text((task.date ?? .init()).formatted(date: .omitted, time: .shortened))
+                    .font(.callout)
+                    .foregroundColor(.gray)
+                    .overlay {
+                        
+                        DatePicker(selection: .init(get: {
+                            return task.date ?? .init()
+                        }, set: { date in
+                            task.date = date
+                            // saving date when ever is's updated
+                            save()
+                        }), displayedComponents: [.hourAndMinute]) {
+                            
+                        }
+                        .labelsHidden()
+                        .blendMode(.destinationOver)
+                    }
                 
-                DatePicker(selection: .init(get: {
-                    return task.date ?? .init()
-                }, set: { date in
-                    task.date = date
-                    // saving date when ever is's updated
-                    save()
-                }), displayedComponents: [.hourAndMinute]) {
-                    
-                }.labelsHidden()
+                
             }
             .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -151,6 +161,16 @@ struct TaskView: View {
                 
                 save()
             }
+        }
+        // 右滑事件
+        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+            Button {
+                env.managedObjectContext.delete(task)
+                save()
+            } label: {
+                Image(systemName: "trash.fill")
+            }
+
         }
     }
     
