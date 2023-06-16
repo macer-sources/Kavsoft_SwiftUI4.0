@@ -124,7 +124,7 @@ struct TaskView: View {
                     save()
                 }
                 .foregroundColor(isPendintTask ? .primary : .gray)
-//                .strikethrough(!isPendintTask, pattern: .dash, color: .primary)
+                .strikethrough(!isPendintTask, pattern: .dash, color: .primary)
                 
                 Text((task.date ?? .init()).formatted(date: .omitted, time: .shortened))
                     .font(.callout)
@@ -168,8 +168,11 @@ struct TaskView: View {
         // 右滑事件
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
             Button {
-                env.managedObjectContext.delete(task)
-                save()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                    env.managedObjectContext.delete(task)
+                    save()
+                }
+               
             } label: {
                 Image(systemName: "trash.fill")
             }
