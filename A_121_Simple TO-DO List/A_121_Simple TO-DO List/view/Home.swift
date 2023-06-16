@@ -24,28 +24,52 @@ struct Home: View {
             .labelsHidden()
             .datePickerStyle(.graphical)
             
-            DisclosureGroup(isExpanded: $showPendingTasks) {
-                CustomFilteringDataView(displayPendingTask: true, filterDate: filterDate) { task in
-                    TaskView(task: task, isPendintTask: true)
+            CustomFilteringDataView(filterDate: $filterDate) { pendingTaks, completedTasks in
+                DisclosureGroup(isExpanded: $showPendingTasks) {
+                    
+                    if pendingTaks.isEmpty {
+                        Text("No Task's Found")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                        
+                    }else {
+                        ForEach(pendingTaks) {
+                            TaskView(task: $0, isPendintTask: true)
+                        }
+                    }
+           
+                } label: {
+                    Text("Pending Tasks \(pendingTaks.isEmpty ? "" : "(\(pendingTaks.count))")")
+                        .font(.caption)
+                        .foregroundColor(.gray)
                 }
-            } label: {
-                Text("Pending Tasks")
-                    .font(.caption)
-                    .foregroundColor(.gray)
+                
+                
+                DisclosureGroup(isExpanded: $showCompletedTasks) {
+                    
+                    if completedTasks.isEmpty {
+                        Text("No Task's Found")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                        
+                    }else {
+                        ForEach(completedTasks) {
+                            TaskView(task: $0, isPendintTask: false)
+                        }
+                    }
+                    
+                   
+                } label: {
+                    Text("Completed Tasks\(completedTasks.isEmpty ? "" : "(\(completedTasks.count)"))")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                }
             }
-
             
-            DisclosureGroup(isExpanded: $showCompletedTasks) {
-                
-                CustomFilteringDataView(displayPendingTask: false, filterDate: filterDate) { task in
-                    TaskView(task: task, isPendintTask: false)
-                }
-                
-            } label: {
-                Text("Completed Tasks")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-            }
+            
+          
+
+
             
             
         }
@@ -177,6 +201,13 @@ struct TaskView: View {
                 Image(systemName: "trash.fill")
             }
 
+        }
+        .onDisappear {
+            showKeyboard = false
+            DispatchQueue.main.async {
+                removeEmptyTask()
+                save()
+            }
         }
     }
     
