@@ -25,7 +25,9 @@ struct Home: View {
             .datePickerStyle(.graphical)
             
             DisclosureGroup(isExpanded: $showPendingTasks) {
-                
+                CustomFilteringDataView(displayPendingTask: true, filterDate: filterDate) { task in
+                    TaskView(task: task)
+                }
             } label: {
                 Text("Pending Tasks")
                     .font(.caption)
@@ -35,6 +37,10 @@ struct Home: View {
             
             DisclosureGroup(isExpanded: $showCompletedTasks) {
                 
+                CustomFilteringDataView(displayPendingTask: false, filterDate: filterDate) { task in
+                    TaskView(task: task)
+                }
+                
             } label: {
                 Text("Completed Tasks")
                     .font(.caption)
@@ -43,11 +49,37 @@ struct Home: View {
             
             
         }
+        .toolbar {
+            ToolbarItem(placement: .bottomBar) {
+                Button {
+                    
+                } label: {
+                    HStack {
+                        Image(systemName: "plus.circle.fill")
+                            .font(.title3)
+                        
+                        Text("New Task")
+                    }
+                    .fontWeight(.bold)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+            }
+        }
     }
 }
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+
+
+struct TaskView: View {
+    var task: Task
+    var body: some View {
+        EmptyView()
     }
 }

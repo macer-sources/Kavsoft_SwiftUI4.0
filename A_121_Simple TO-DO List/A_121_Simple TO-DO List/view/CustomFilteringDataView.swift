@@ -7,9 +7,40 @@
 
 import SwiftUI
 
-struct CustomFilteringDataView: View {
+struct CustomFilteringDataView<Content: View>: View {
+    
+    var content:(Task) -> Content
+    @FetchRequest
+    private var result: FetchedResults<Task>
+    
+    init(displayPendingTask: Bool, filterDate: Date, content: @escaping(Task) -> Content) {
+        
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: filterDate)
+        let endOfDay = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: startOfDay)!
+        
+        let predicate = NSPredicate.init(format: "date >= %@ AND date <= %@ AND isCompleted = %i", (startOfDay as NSDate), (endOfDay as NSDate), !displayPendingTask)
+        
+        _result = FetchRequest.init(entity: Task.entity(), sortDescriptors: [
+            NSSortDescriptor.init(keyPath: \Task.date, ascending: false)
+        ], predicate: predicate, animation: .easeInOut(duration: 0.25))
+        
+        self.content = content
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Group {
+            if result.isEmpty {
+                Text("No Task's Found")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                    .listRowSeparator(.hidden)
+            }else {
+                ForEach(result) {
+                    content($0)
+                }
+            }
+        }
     }
 }
 
