@@ -106,6 +106,7 @@ struct TaskView: View {
                     .font(.title)
                     .foregroundColor(.blue)
             }
+            .buttonStyle(.plain)
             
             VStack(alignment: .leading, spacing: 4) {
                 TextField("Task Title", text: .init(get: {
@@ -122,6 +123,8 @@ struct TaskView: View {
                     
                     save()
                 }
+                .foregroundColor(isPendintTask ? .primary : .gray)
+//                .strikethrough(!isPendintTask, pattern: .dash, color: .primary)
                 
                 Text((task.date ?? .init()).formatted(date: .omitted, time: .shortened))
                     .font(.callout)
