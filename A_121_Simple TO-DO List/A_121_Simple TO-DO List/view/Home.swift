@@ -26,7 +26,7 @@ struct Home: View {
             
             DisclosureGroup(isExpanded: $showPendingTasks) {
                 CustomFilteringDataView(displayPendingTask: true, filterDate: filterDate) { task in
-                    TaskView(task: task)
+                    TaskView(task: task, isPendintTask: true)
                 }
             } label: {
                 Text("Pending Tasks")
@@ -38,7 +38,7 @@ struct Home: View {
             DisclosureGroup(isExpanded: $showCompletedTasks) {
                 
                 CustomFilteringDataView(displayPendingTask: false, filterDate: filterDate) { task in
-                    TaskView(task: task)
+                    TaskView(task: task, isPendintTask: false)
                 }
                 
             } label: {
@@ -52,7 +52,18 @@ struct Home: View {
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
                 Button {
-                    
+                    do {
+                        let task = Task.init(context: env.managedObjectContext)
+                        task.id = .init()
+                        task.date = filterDate
+                        task.title = ""
+                        task.isCompleted = false
+                        try env.managedObjectContext.save()
+                        showPendingTasks = true
+                        
+                    }catch {
+                        debugPrint(error.localizedDescription)
+                    }
                 } label: {
                     HStack {
                         Image(systemName: "plus.circle.fill")
@@ -79,7 +90,85 @@ struct Home_Previews: PreviewProvider {
 
 struct TaskView: View {
     var task: Task
+    var isPendintTask: Bool
+    
+    @Environment(\.self) private var env
+    @FocusState private var showKeyboard: Bool
+    
     var body: some View {
-        EmptyView()
+        HStack(spacing: 12) {
+            Button {
+                
+
+            } label: {
+                Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
+                    .font(.title)
+                    .foregroundColor(.blue)
+            }
+            
+            VStack(alignment: .leading, spacing: 4) {
+                TextField("Task Title", text: .init(get: {
+                    return task.title ?? ""
+                }, set: { value in
+                    task.title = value
+                }))
+                .focused($showKeyboard)
+                .onSubmit {
+                    if (task.title ?? "").isEmpty {
+                        // remove empty task
+                        env.managedObjectContext.delete(task)
+                    }
+                    
+                    save()
+                }
+                
+                
+                DatePicker(selection: .init(get: {
+                    return task.date ?? .init()
+                }, set: { date in
+                    task.date = date
+                    // saving date when ever is's updated
+                    save()
+                }), displayedComponents: [.hourAndMinute]) {
+                    
+                }.labelsHidden()
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+        }
+        .onAppear {
+            if (task.title ?? "" ).isEmpty {
+                showKeyboard = true
+            }
+        }
+        // verifiying content when user leave the app
+        .onChange(of: env.scenePhase) { newValue in
+            if newValue != .active {
+                if (task.title ?? "").isEmpty {
+                    // remove empty task
+                    env.managedObjectContext.delete(task)
+                }
+                
+                save()
+            }
+        }
+    }
+    
+    
+    // context saving method
+    func save() {
+        do {
+            try env.managedObjectContext.save()
+        } catch {
+            debugPrint(error.localizedDescription)
+        }
+    }
+    
+    func removeEmptyTask () {
+        if (task.title ?? "").isEmpty {
+            // remove empty task
+            env.managedObjectContext.delete(task)
+        }
+        
     }
 }
