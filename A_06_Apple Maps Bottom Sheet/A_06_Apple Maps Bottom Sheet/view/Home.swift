@@ -9,12 +9,24 @@ import SwiftUI
 import MapKit
 
 struct Home: View {
+    @State private var showAnotherSheet = false
+    
     var body: some View {
         ZStack {
             let region = MKCoordinateRegion(center: CLLocationCoordinate2D.init(latitude: 25.2048, longitude: 55.2708), latitudinalMeters: 10000, longitudinalMeters: 10000)
             Map(coordinateRegion: .constant(region))
                 .ignoresSafeArea()
-                .bottomSheet(presentationDetents: [.medium, .large, .height(70)], isPresented: .constant(true), sheetCornerRadius: 10) {
+                .overlay(alignment: .topTrailing, content: {
+                    Button {
+                        showAnotherSheet.toggle()
+                    } label: {
+                        Image(systemName: "gearshape.fill")
+                            .font(.title2)
+                    }
+                    .padding()
+
+                })
+                .bottomSheet(presentationDetents: [.medium, .large, .height(70)], isPresented: .constant(true), sheetCornerRadius: 20) {
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 15) {
                             TextField("Search Maps", text: .constant(""))
@@ -24,17 +36,19 @@ struct Home: View {
                                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                                         .fill(.ultraThickMaterial)
                                 }
-                            
+
                             // MARK: song list
                             SongList()
                         }
                         .padding()
                         .padding(.top)
                     }
-                } onDismiss: {
-                    
+//                     MARK: 默认情况下，一个controller 只能 present 一个 sheet
+//                     因此，如果我们尝试显示另一张工作表，它将不会显示，但是有一个解决方法，只需将所有工作表和全屏封面视图插入底部工作表视图即可，因为它是一个新的视图控制器，因此它能够显示另一张工作表
+                    .sheet(isPresented: $showAnotherSheet) {
+                        Text("Hello Sheet ")
+                    }
                 }
-
         }
     }
     
