@@ -36,8 +36,8 @@ extension View {
                     .presentationDragIndicator(dragVisibility)
                     .interactiveDismissDisabled(interactiveDisabled)
                     .onAppear {
-                        
-     
+
+                    }
             }
 
     }
