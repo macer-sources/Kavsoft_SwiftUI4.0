@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		963509B92A3D990300ED6021 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963509B82A3D990300ED6021 /* Home.swift */; };
+		963509BB2A3D990C00ED6021 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963509BA2A3D990C00ED6021 /* Extensions.swift */; };
 		AB7E096E2A3C7169005E0ECE /* A_06_Apple_Maps_Bottom_SheetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7E096D2A3C7169005E0ECE /* A_06_Apple_Maps_Bottom_SheetApp.swift */; };
 		AB7E09702A3C7169005E0ECE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7E096F2A3C7169005E0ECE /* ContentView.swift */; };
 		AB7E09722A3C716A005E0ECE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB7E09712A3C716A005E0ECE /* Assets.xcassets */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		963509B82A3D990300ED6021 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		963509BA2A3D990C00ED6021 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		AB7E096A2A3C7169005E0ECE /* A_06_Apple Maps Bottom Sheet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "A_06_Apple Maps Bottom Sheet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB7E096D2A3C7169005E0ECE /* A_06_Apple_Maps_Bottom_SheetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = A_06_Apple_Maps_Bottom_SheetApp.swift; sourceTree = "<group>"; };
 		AB7E096F2A3C7169005E0ECE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -82,6 +86,8 @@
 		AB7E097C2A3C721D005E0ECE /* view */ = {
 			isa = PBXGroup;
 			children = (
+				963509B82A3D990300ED6021 /* Home.swift */,
+				963509BA2A3D990C00ED6021 /* Extensions.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -156,8 +162,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				963509BB2A3D990C00ED6021 /* Extensions.swift in Sources */,
 				AB7E09702A3C7169005E0ECE /* ContentView.swift in Sources */,
 				AB7E096E2A3C7169005E0ECE /* A_06_Apple_Maps_Bottom_SheetApp.swift in Sources */,
+				963509B92A3D990300ED6021 /* Home.swift in Sources */,
 				AB7E097E2A3C722C005E0ECE /* Album.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
