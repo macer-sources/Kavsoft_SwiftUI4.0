@@ -12,6 +12,7 @@
 		AB9E63F72A415360008CC8EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB9E63F62A415360008CC8EF /* Assets.xcassets */; };
 		AB9E63FA2A415360008CC8EF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB9E63F92A415360008CC8EF /* Preview Assets.xcassets */; };
 		ABB8FDF72A41542600C0D18D /* ReceiptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB8FDF62A41542600C0D18D /* ReceiptView.swift */; };
+		ABB8FDF92A41813E00C0D18D /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB8FDF82A41813E00C0D18D /* ShareSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		AB9E63F62A415360008CC8EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB9E63F92A415360008CC8EF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		ABB8FDF62A41542600C0D18D /* ReceiptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptView.swift; sourceTree = "<group>"; };
+		ABB8FDF82A41813E00C0D18D /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ShareSheet.swift; path = "A_09_ ImageRenderer Creating PDF/ShareSheet.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +39,7 @@
 		AB9E63E62A41535F008CC8EF = {
 			isa = PBXGroup;
 			children = (
+				ABB8FDF82A41813E00C0D18D /* ShareSheet.swift */,
 				AB9E63F12A41535F008CC8EF /* A_09_ ImageRenderer Creating PDF */,
 				AB9E63F02A41535F008CC8EF /* Products */,
 			);
@@ -143,6 +146,7 @@
 				ABB8FDF72A41542600C0D18D /* ReceiptView.swift in Sources */,
 				AB9E63F52A41535F008CC8EF /* ContentView.swift in Sources */,
 				AB9E63F32A41535F008CC8EF /* A_09__ImageRenderer_Creating_PDFApp.swift in Sources */,
+				ABB8FDF92A41813E00C0D18D /* ShareSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
