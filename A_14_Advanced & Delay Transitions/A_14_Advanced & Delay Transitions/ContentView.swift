@@ -22,18 +22,27 @@ struct ContentView: View {
             ScrollView(content: {
                 VStack(spacing: 12) {
                     ForEach(chat) { chat in
-                        ChatView(message: chat)
-                        // 使用锚点首选项读取视图锚点值（bounds）
-                            .anchorPreference(key: BoundsPreferences.self, value: .bounds, transform: { anchor in
-                                return [chat.id : anchor]
-                            })
-                            .padding(chat.isReply ? .leading : .trailing, 60)
-                            .onLongPressGesture {
-                                withAnimation {
-                                    showHightlight = true
-                                    hightlightChat = chat
-                                }
+                        VStack(alignment: chat.isReply ? .leading : .trailing) {
+                            if chat.isEmojiAdded {
+                                AnimatedEmoji(emoji: chat.emojiValue, color: chat.isReply ? .blue : .gray.opacity(0.5))
+                                    .offset(x: chat.isReply ? -15 : 15)
+                                    .padding(.bottom, -25)
+                                    .zIndex(1)
+                                    .opacity(showHightlight ? 0 : 1)
                             }
+                            ChatView(message: chat)
+                            // 使用锚点首选项读取视图锚点值（bounds）
+                                .anchorPreference(key: BoundsPreferences.self, value: .bounds, transform: { anchor in
+                                    return [chat.id : anchor]
+                                })
+                        }
+                        .padding(chat.isReply ? .leading : .trailing, 60)
+                        .onLongPressGesture {
+                            withAnimation {
+                                showHightlight = true
+                                hightlightChat = chat
+                            }
+                        }
                     }
                 }
                 .padding()
@@ -95,7 +104,7 @@ extension ContentView {
                     if let index = chat.firstIndex(where: { chat in
                         chat.id == message.id
                     }) {
-                        withAnimation(.easeInOut) {
+                        withAnimation(.easeInOut.delay(0.3)) {
                             chat[index].isEmojiAdded = true
                             chat[index].emojiValue = emoji
                         }
@@ -110,6 +119,68 @@ extension ContentView {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+
+struct AnimatedEmoji: View {
+    var emoji: String
+    var color: Color = .blue
+    
+    // MARK: Animation Properties
+    @State var animationValues:[Bool] = Array.init(repeating: false, count: 6)
+    
+    var body: some View {
+        ZStack {
+            Text(emoji)
+                .font(.system(size: 25))
+                .padding(6)
+                .background {
+                    Circle()
+                        .fill(color)
+                }
+                .scaleEffect(animationValues[2] ? 1 : 0)
+                .overlay {
+                    Circle()
+                        .stroke(color, lineWidth: animationValues[0] ? 0 : 100)
+                        .clipShape(Circle())
+                        .scaleEffect(animationValues[0] ? 1.6 : 0.01)
+                }
+            // MARK: Random Circles
+                .overlay {
+                    ZStack {
+                        ForEach(1...20, id:\.self) { index in
+                            Circle()
+                                .fill(color)
+                                .frame(width: .random(in: 3...5), height: .random(in: 3...5))
+                                .offset(x: .random(in: -5...5), y: .random(in: -5...5))
+                                .offset(x: animationValues[3] ? 45 : 10)
+                                .rotationEffect(.init(degrees: Double(index) * 18))
+                                .scaleEffect(animationValues[2] ? 1 : 0.01)
+                                .opacity(animationValues[4] ? 0 : 1)
+                        }
+                    }
+                }
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                withAnimation(.easeInOut(duration: 0.35)) {
+                    animationValues[0] = true
+                }
+                withAnimation(.easeInOut(duration: 0.45).delay(0.06)) {
+                    animationValues[1] = true
+                }
+                withAnimation(.easeInOut(duration: 0.35).delay(0.3)) {
+                    animationValues[2] = true
+                }
+                withAnimation(.easeInOut(duration: 0.35).delay(0.4)) {
+                    animationValues[3] = true
+                }
+                withAnimation(.easeInOut(duration: 0.55).delay(0.55)) {
+                    animationValues[4] = true
+                }
+            }
+        }
     }
 }
 
