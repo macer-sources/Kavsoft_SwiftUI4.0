@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State var current: Tab = sample_datas.first!
+    @State var offset:CGFloat = 0
+    
     var body: some View {
         ZStack {
             TabView(selection: $current) {
@@ -23,10 +25,22 @@ struct ContentView: View {
                             .clipped()
                     }
                     .ignoresSafeArea()
+                    .offsetX { value in
+                        if current == tab {
+                            offset = value
+                        }
+                    }
+                    .tag(tab)
                 }
             }
             .ignoresSafeArea()
             .tabViewStyle(.page(indexDisplayMode: .never))
+            
+            // TODO: TEST
+            Text("\(offset)")
+                .frame(alignment: .center)
+                .foregroundColor(.white)
+            
         }
     }
 }

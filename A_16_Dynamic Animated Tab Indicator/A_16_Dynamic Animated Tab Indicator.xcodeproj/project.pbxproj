@@ -12,6 +12,7 @@
 		ABB845A72A42D64500C0D18D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB845A62A42D64500C0D18D /* Assets.xcassets */; };
 		ABB845AA2A42D64500C0D18D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB845A92A42D64500C0D18D /* Preview Assets.xcassets */; };
 		ABB845B12A42DA5700C0D18D /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB845B02A42DA5700C0D18D /* Models.swift */; };
+		ABB845B32A42DBB500C0D18D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB845B22A42DBB500C0D18D /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		ABB845A62A42D64500C0D18D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ABB845A92A42D64500C0D18D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		ABB845B02A42DA5700C0D18D /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		ABB845B22A42DBB500C0D18D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 			children = (
 				ABB845A22A42D64400C0D18D /* A_16_Dynamic_Animated_Tab_IndicatorApp.swift */,
 				ABB845A42A42D64400C0D18D /* ContentView.swift */,
+				ABB845B22A42DBB500C0D18D /* Extensions.swift */,
 				ABB845B02A42DA5700C0D18D /* Models.swift */,
 				ABB845A62A42D64500C0D18D /* Assets.xcassets */,
 				ABB845A82A42D64500C0D18D /* Preview Content */,
@@ -143,6 +146,7 @@
 				ABB845B12A42DA5700C0D18D /* Models.swift in Sources */,
 				ABB845A52A42D64400C0D18D /* ContentView.swift in Sources */,
 				ABB845A32A42D64400C0D18D /* A_16_Dynamic_Animated_Tab_IndicatorApp.swift in Sources */,
+				ABB845B32A42DBB500C0D18D /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
