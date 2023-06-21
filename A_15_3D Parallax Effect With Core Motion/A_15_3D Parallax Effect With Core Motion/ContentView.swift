@@ -63,18 +63,22 @@ extension ContentView {
                 GeometryReader { proxy in
                     let size = proxy.size
                     
+                    // MARK: Adding Parallax Effect To Currently Showing Slide
                     ZStack {
                         Image(place.bg)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
+                            .offset(x: manager.currentSide.id == place.id ? -manager.xValue * 75 : 0)
                             .frame(width: size.width, height: size.height)
                             .clipped()
                         
                         Image(place.icon)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
+                            .offset(x: manager.currentSide.id == place.id ? overlayOffset() : 0)
                             .frame(width: size.width, height: size.height)
                             .clipped()
+                            .scaleEffect(1.05, anchor: .bottom)
                         
                         VStack(spacing: 10) {
                             Text("FEATURES")
@@ -110,10 +114,12 @@ extension ContentView {
                         }
                         .frame(maxHeight: .infinity, alignment: .top)
                         .padding(.top, 60)
+                        .offset(x: manager.currentSide.id == place.id ? -manager.xValue * 15 : 0)
                     }
                     
                     .frame(width: size.width, height: size.height, alignment: .center)
                     .clipShape(RoundedRectangle(cornerRadius: 22))
+                    .animation(.interactiveSpring(), value: manager.xValue)
                 }
                 .padding(.vertical, 30)
                 .padding(.horizontal, 40)
@@ -139,6 +145,15 @@ extension ContentView {
                     .frame(maxWidth: .infinity)
             }
         }
+    }
+    
+    
+    func overlayOffset() -> CGFloat {
+        let offset = manager.xValue * 7
+        if offset > 0 {
+            return offset > 8 ? 8 : offset
+        }
+        return -offset > 8 ? -8 : offset
     }
     
 }
