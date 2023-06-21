@@ -15,6 +15,7 @@ struct ContentView: View {
     
     
     @State var hightlightChat: Message?
+    @State var showHightlight: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -29,6 +30,7 @@ struct ContentView: View {
                             .padding(chat.isReply ? .leading : .trailing, 60)
                             .onLongPressGesture {
                                 withAnimation {
+                                    showHightlight = true
                                     hightlightChat = chat
                                 }
                             }
@@ -39,13 +41,14 @@ struct ContentView: View {
             .navigationTitle("Transitions")
         }
         .overlay(content: {
-            if let _ = hightlightChat {
+            if showHightlight {
                 Rectangle()
                     .fill(.ultraThinMaterial)
                     .environment(\.colorScheme, .dark)
                     .ignoresSafeArea()
                     .onTapGesture {
                         withAnimation {
+                            showHightlight = false
                             hightlightChat = nil
                         }
                     }
@@ -59,7 +62,8 @@ struct ContentView: View {
                 GeometryReader { proxy in
                     let rect = proxy[preference.value]
                     
-                    ChatView(message: hightlightChat)
+                    ChatView(message: hightlightChat, showLike: true)
+                        .id(hightlightChat.id)
                         .frame(width: rect.width, height: rect.height)
                         .offset(x: rect.minX, y: rect.minY)
                 }
@@ -73,12 +77,33 @@ struct ContentView: View {
 
 extension ContentView {
     @ViewBuilder
-    func ChatView(message: Message) -> some View {
-        Text(message.message)
-            .padding(15)
-            .background(message.isReply ? Color.gray.opacity(0.2) : Color.blue)
-            .foregroundColor(message.isReply ? .black :  .white)
-            .clipShape(RoundedRectangle(cornerRadius: 15))
+    func ChatView(message: Message, showLike: Bool = false) -> some View {
+        ZStack(alignment: .bottomLeading) {
+            Text(message.message)
+                .padding(15)
+                .background(message.isReply ? Color.gray.opacity(0.2) : Color.blue)
+                .foregroundColor(message.isReply ? .black :  .white)
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+            
+            if showLike {
+                EmojiView(hideView: $showHightlight,chat: message) { emoji in
+                    // MARK: Close hightlight
+                    withAnimation(.easeInOut) {
+                        showHightlight = false
+                        hightlightChat = nil
+                    }
+                    if let index = chat.firstIndex(where: { chat in
+                        chat.id == message.id
+                    }) {
+                        withAnimation(.easeInOut) {
+                            chat[index].isEmojiAdded = true
+                            chat[index].emojiValue = emoji
+                        }
+                    }
+                }
+                .offset(y: 55)
+            }
+        }
     }
 }
 
@@ -89,6 +114,64 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 
+
+struct EmojiView: View {
+    @Binding var hideView: Bool
+    var chat: Message
+    var onTap:(String) -> Void = {_ in }
+    var emojis:[String] = ["🐶","🤔️","😋"]
+    @State var animateEmoji:[Bool] = Array(repeating: false, count: 3)
+    @State var animateView: Bool = false
+    
+    var body: some View {
+        HStack(spacing: 12) {
+            ForEach(emojis.indices, id: \.self) { index in
+                Text(emojis[index])
+                    .font(.system(size: 25))
+                    .scaleEffect(animateEmoji[index] ? 1 : 0.01)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            withAnimation(.easeInOut.delay(Double(index) * 0.1)) {
+                                animateEmoji[index] = true
+                            }
+                        }
+                    }
+                    .onTapGesture {
+                        onTap(emojis[index])
+                    }
+            }
+        }
+        .padding(.horizontal, 15)
+        .padding(.vertical, 8)
+        .background {
+            Capsule()
+                .fill(.white)
+                .mask {
+                    Capsule()
+                        .scaleEffect(animateView ? 1 : 0, anchor: .leading)
+                }
+        }
+        .onAppear {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                animateView = true
+            }
+        }
+        .onChange(of: hideView) { newValue in
+            if !newValue {
+                withAnimation(.easeInOut(duration: 0.2).delay(0.15)) {
+                    animateView = false
+                }
+                
+                for index in emojis.indices {
+                    withAnimation(.easeInOut) {
+                        animateEmoji[index] = false
+                    }
+                }
+                
+            }
+        }
+    }
+}
 
 
 struct BoundsPreferences: PreferenceKey {
