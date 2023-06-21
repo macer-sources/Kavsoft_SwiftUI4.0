@@ -12,6 +12,8 @@ struct ContentView: View {
     @State var offset:CGFloat = 0
     @State var isTapped: Bool = false
     
+    @StateObject var manager = InteractionManager()
+    
     var body: some View {
         GeometryReader { proxy in
             let screenSize = proxy.size
@@ -40,6 +42,10 @@ struct ContentView: View {
                             }
                             
                             
+                            // 如果用户在偏移量未达到 0 时快速滚动怎么办 解决方法检测用户是否触摸屏幕，然后将 isTapped 设置为 false
+                            if isTapped && manager.isInteracting {
+                                isTapped = false
+                            }
                             
                         }
                         .tag(tab)
@@ -47,12 +53,21 @@ struct ContentView: View {
                 }
                 .ignoresSafeArea()
                 .tabViewStyle(.page(indexDisplayMode: .never))
+                .onAppear {
+                    manager.addGesture()
+                }
+                .onDisappear {
+                    manager.removeGesutre()
+                }
                 
 
                 // MARK: Building Custom Header With Dynamic Tabs
                 DynamicTabHeader(size: screenSize)
             }
             .frame(width: screenSize.width, height: screenSize.height)
+        }
+        .onChange(of: manager.isInteracting) { newValue in
+            
         }
     }
     
@@ -172,3 +187,45 @@ extension ContentView {
 }
 
 
+class InteractionManager: NSObject, ObservableObject, UIGestureRecognizerDelegate {
+    @Published var isInteracting: Bool = false
+    @Published var isGesutreAdded: Bool = false
+    
+    func addGesture() {
+        if isGesutreAdded {
+            return
+        }
+        let gesutre = UIPanGestureRecognizer(target: self, action: #selector(onChange(gesture:)))
+        gesutre.name = "UNIVERSAL"
+        gesutre.delegate = self
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
+            return
+        }
+        guard let window = windowScene.windows.last?.rootViewController else {return}
+        window.view.addGestureRecognizer(gesutre)
+        isGesutreAdded = true
+    }
+    
+    // MARK: Removeing gesture
+    func removeGesutre() {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
+            return
+        }
+        guard let window = windowScene.windows.last?.rootViewController else {return}
+        
+        window.view.gestureRecognizers?.removeAll(where: { gesture in
+            return gesture.name == "UNIVERSAL"
+        })
+        
+        isGesutreAdded = false
+    }
+    
+    
+    @objc func onChange(gesture: UIPanGestureRecognizer) {
+        isInteracting = (gesture.state == .changed)
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        true
+    }
+}
