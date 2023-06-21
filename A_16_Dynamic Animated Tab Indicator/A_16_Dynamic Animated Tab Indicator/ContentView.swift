@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State var current: Tab = sample_datas.first!
     @State var offset:CGFloat = 0
+    @State var isTapped: Bool = false
     
     var body: some View {
         GeometryReader { proxy in
@@ -30,9 +31,16 @@ struct ContentView: View {
                         }
                         .ignoresSafeArea()
                         .offsetX { value in
-                            if current == tab {
+                            if current == tab && !isTapped {
                                 offset = value - (screenSize.width * CGFloat(indexOf(tab: tab)))
                             }
+                            
+                            if value == 0 && isTapped {
+                                isTapped = false
+                            }
+                            
+                            
+                            
                         }
                         .tag(tab)
                     }
@@ -58,7 +66,7 @@ struct ContentView: View {
                 .foregroundColor(.white)
             
             // MARK: Dynamic Tabs
-            DynamicTabsType1(size: size)
+            DynamicTabsType2(size: size)
             
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -115,4 +123,52 @@ extension ContentView {
         }
     }
 }
+
+extension ContentView {
+    @ViewBuilder
+    func DynamicTabsType2(size: CGSize) -> some View {
+        HStack {
+            ForEach(sample_datas) { tab in
+                Text(tab.name)
+                    .fontWeight(.semibold)
+                    .padding(.vertical, 6)
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(.white)
+            }
+        }
+        .overlay(alignment: .leading) {
+            Capsule()
+                .fill(.white)
+                .overlay(alignment: .leading, content: {
+                    GeometryReader { _ in
+                        HStack(spacing: 0) {
+                            ForEach(sample_datas) { tab in
+                                Text(tab.name)
+                                    .fontWeight(.semibold)
+                                    .padding(.vertical, 6)
+                                    .frame(maxWidth: .infinity)
+                                    .foregroundColor(.black)
+                                    .contentShape(Capsule())
+                                    .onTapGesture {
+                                        isTapped = true
+                                        withAnimation {
+                                            current = tab
+                                            offset = -(size.width) * CGFloat(indexOf(tab: tab))
+                                        }
+                                    }
+                            }
+                        }
+                        .offset(x: -tabOffset(size: size, padding: 30))
+                    }
+                    .frame(width: size.width - 30)
+                })
+                .mask({
+                    Capsule()
+                })
+                .frame(width: (size.width - 30) / CGFloat(sample_datas.count))
+                .offset(x: tabOffset(size: size, padding: 30))
+        }
+    }
+}
+
 
