@@ -10,16 +10,44 @@ import SwiftUI
 struct ContentView: View {
     
     @State var headerHeight: CGFloat = 0
+    @State var headerOffset: CGFloat = 0
+    @State var lastHeaderOffset: CGFloat = 0
+    @State var direction: SwipeDirection = .none
+    
+    // MARK: Shift offset means the value from where it shifted from up/down
+    @State var shiftOffset: CGFloat = 0
+    
+    
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             Thumbnails()
                 .padding(.top, headerHeight)
                 .offsetY { previous, current in
+                    // MARK: Moving Header Based on direction scroll
+                    
                     if previous > current {
-                        print("Up")
+                        if direction != .up && current < 0 {
+                            shiftOffset = current - headerOffset
+                            direction = .up
+                            lastHeaderOffset = headerOffset
+                        }
+                        
+                        let offset = current < 0 ? (current - shiftOffset) : 0
+                        // MARK: Checking if it does not goes over over header height
+                        headerOffset = (-offset < headerHeight ? (offset < 0 ? offset : 0) : -headerHeight)
+                        
                     }else {
-                        print("Down")
+                        if direction != .down {
+                            shiftOffset = current
+                            direction = .down
+                            lastHeaderOffset = headerOffset
+                        }
+                        
+                        let offset = lastHeaderOffset + (current - shiftOffset)
+                        headerOffset = (offset > 0 ? 0 : offset)
+                        
+                        
                     }
                 }
         }
@@ -38,7 +66,9 @@ struct ContentView: View {
                         }
                     }
                 }
+                .offset(y: -headerOffset < headerHeight ? headerOffset : (headerOffset < 0 ? headerOffset : 0))
         }
+        .ignoresSafeArea(.all, edges: .top)
     }
     
     
@@ -107,9 +137,11 @@ struct ContentView: View {
                 .padding(.bottom, 10)
             
         }
+        .padding(.top, safeArea().top)
         .background {
             Color.white.ignoresSafeArea()
         }
+        .padding(.bottom, 20)
     }
     
     
@@ -146,3 +178,10 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
  
+
+
+enum SwipeDirection {
+    case up
+    case down
+    case none
+}

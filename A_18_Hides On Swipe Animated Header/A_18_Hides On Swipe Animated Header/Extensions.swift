@@ -17,6 +17,13 @@ extension View {
         self
             .modifier(OffsetHelper(onChange: completion))
     }
+    
+    
+    func safeArea() -> UIEdgeInsets {
+        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {return .zero}
+        guard let safeArea = scene.windows.first?.safeAreaInsets else {return .zero}
+        return safeArea
+    }
 }
 
 
