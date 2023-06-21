@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var headerHeight: CGFloat = 0
+    
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             Thumbnails()
+                .padding(.top, headerHeight)
                 .offsetY { previous, current in
                     if previous > current {
                         print("Up")
@@ -19,8 +23,21 @@ struct ContentView: View {
                     }
                 }
         }
+        .coordinateSpace(name: "SCROLL")
         .overlay(alignment: .top) {
             HeaderView()
+                .anchorPreference(key: HeaderBoundsKey.self, value: .bounds, transform: {$0})
+                .overlayPreferenceValue(HeaderBoundsKey.self) { value in
+                    GeometryReader { proxy in
+                        if let anchor = value {
+                            Color.clear
+                                .onAppear {
+                                    // MARK: retreiving rect using proxy
+                                    headerHeight = proxy[anchor].height
+                                }
+                        }
+                    }
+                }
         }
     }
     

@@ -31,7 +31,7 @@ struct OffsetHelper: ViewModifier {
         content
             .overlay {
                 GeometryReader { proxy in
-                    let minY = proxy.frame(in: .global).minY
+                    let minY = proxy.frame(in: .named("SCROLL")).minY
                     Color.clear
                         .preference(key: OffsetKey.self, value: minY)
                         .onPreferenceChange(OffsetKey.self) { value in
@@ -49,6 +49,15 @@ struct OffsetHelper: ViewModifier {
 struct OffsetKey: PreferenceKey {
     static var defaultValue: CGFloat = 0
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
+    }
+}
+
+// MARK: bounds preference key for identiying height of the header view
+struct HeaderBoundsKey: PreferenceKey {
+    static var defaultValue: Anchor<CGRect>?
+    
+    static func reduce(value: inout Anchor<CGRect>?, nextValue: () -> Anchor<CGRect>?) {
         value = nextValue()
     }
 }
