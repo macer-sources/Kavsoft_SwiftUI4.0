@@ -25,6 +25,7 @@ struct ScratchCardView<Content: View, Overlay: View>: View {
     
     
     @State var dragPoints:[CGPoint] = []
+    @State var animateCard: [Bool] = [false, false]
     
     var body: some View {
         // 逻辑很简单
@@ -44,6 +45,17 @@ struct ScratchCardView<Content: View, Overlay: View>: View {
                         dragPoints.append(value.location)
                     })
                 )
+        }
+        // TODO: 添加浮动动画效果
+        .rotation3DEffect(.init(degrees: animateCard[0] ? 4: 0), axis: (x: 1, y: 0, z: 0))
+        .rotation3DEffect(.init(degrees: animateCard[1] ? 4: 0), axis: (x: 0, y: 1, z: 0))
+        .onAppear {
+            withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true)) {
+                animateCard[0] = true
+            }
+            withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true).delay(0.8)) {
+                animateCard[1] = true
+            }
         }
     }
 }
