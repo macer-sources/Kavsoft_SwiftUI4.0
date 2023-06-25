@@ -12,11 +12,52 @@ struct ContentView: View {
     @State var current: BreatheType = sample_datas[0]
     @Namespace var animation
     
+    // MARK: Animation properties
+    @State var showBreatheView:Bool = false
+    @State var startAnimation: Bool = false
+    
+    // MARK: Timer properties
+    @State var timerCount:CGFloat = 0
+    @State var breatheAction: String = "Breathe In"
+    @State var count: Int = 0
+    
     var body: some View {
         ZStack {
             Background()
             
             Content()
+            
+            Text(breatheAction)
+                .font(.largeTitle)
+                .foregroundColor(.white)
+                .frame(maxHeight: .infinity, alignment: .top)
+                .padding(.top, 50)
+                .opacity(showBreatheView ? 1 : 0)
+                .animation(.easeInOut(duration: 1), value: breatheAction)
+                .animation(.easeInOut(duration: 1), value: showBreatheView)
+            
+        }
+        // MARK: Timer
+        .onReceive(Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()) { _ in
+            if showBreatheView {
+                if timerCount >= 3.2 {
+                    timerCount = 0
+                    breatheAction = (breatheAction == "Breathe Out" ? "Breathe In" : "Breathe Out")
+                    withAnimation(.easeInOut(duration: 3).delay(0.1)) {
+                        startAnimation.toggle()
+                    }
+                    // MARK: 触觉反馈
+                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                    
+                }else {
+                    timerCount += 0.01
+                }
+                
+                count = 3 - Int(timerCount)
+            }else {
+                // resetting
+                timerCount = 0
+            }
         }
     }
     
@@ -32,6 +73,7 @@ struct ContentView: View {
                 .offset(y: -50)
                 .frame(width: size.width, height: size.height)
                 .clipped()
+                .blur(radius: startAnimation ? 4 : 0, opaque: true)
                 .overlay {
                     ZStack {
                         Rectangle()
@@ -82,6 +124,7 @@ struct ContentView: View {
 
             }
             .padding()
+            .opacity(showBreatheView ? 0 : 1)
             
             GeometryReader { proxy in
                 let size = proxy.size
@@ -92,6 +135,7 @@ struct ContentView: View {
                     Text("Breathe to reduce")
                         .font(.title3)
                         .foregroundColor(.white)
+                        .opacity(showBreatheView ? 0 : 1)
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 12) {
@@ -123,18 +167,24 @@ struct ContentView: View {
                         .padding()
                         .padding(.leading, 25)
                     }
+                    .opacity(showBreatheView ? 0 : 1)
                     
                     Button {
-                        
+                        startBreathing()
                     } label: {
-                        Text("START")
+                        Text(showBreatheView ? "Finish Breathing" :"START")
                             .fontWeight(.semibold)
-                            .foregroundColor(.black)
+                            .foregroundColor(showBreatheView ? .white.opacity(0.75) : .black)
                             .padding(.vertical, 15)
                             .frame(maxWidth: .infinity)
                             .background {
-                                RoundedRectangle(cornerRadius: 12)
-                                    .fill(current.color.gradient)
+                                if showBreatheView {
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(.white.opacity(0.5))
+                                }else {
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(current.color.gradient)
+                                }
                             }
                     }
                     .padding()
@@ -158,14 +208,42 @@ struct ContentView: View {
                     .fill(current.color.gradient.opacity(0.5))
                     .frame(width: 150, height: 150)
                     // 150 / 2
-                    .offset(x: 75)
+                    .offset(x: startAnimation ? 0 : 75)
                     // 45 * 8 = 360
                     .rotationEffect(.init(degrees: Double(index) * 45))
+                    .rotationEffect(.init(degrees: startAnimation ? -45 : 0))
             }
         }
+        .scaleEffect(startAnimation ? 0.8 : 1)
+        .overlay(content: {
+            Text("\(count == 0 ? 1 : count)")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+                .animation(.easeInOut, value: count)
+                .opacity(showBreatheView ? 1 : 0)
+        })
         .frame(height: size.width - 40)
         
     }
+    
+    
+    // MARK: Breathing action
+    func startBreathing() {
+        withAnimation(.interactiveSpring(response: 0.6, dampingFraction: 0.7, blendDuration: 0.7)) {
+            showBreatheView.toggle()
+        }
+        if showBreatheView {
+            withAnimation(.easeInOut(duration: 3).delay(0.05)) {
+                startAnimation = true
+            }
+        }else {
+            withAnimation(.easeInOut(duration: 1.5)) {
+                startAnimation = false
+            }
+        }
+    }
+    
     
 }
 
