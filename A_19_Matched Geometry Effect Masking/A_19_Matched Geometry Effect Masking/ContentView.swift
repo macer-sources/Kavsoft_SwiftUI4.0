@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     var body: some View {
         VStack {
             // MARK: Header
@@ -103,6 +104,7 @@ struct ContentView: View {
             
             HStack {
                 Image(systemName: "applelogo")
+                    .offset(y: -3)
                 Text("$59")
             }
             .font(.title.bold())
