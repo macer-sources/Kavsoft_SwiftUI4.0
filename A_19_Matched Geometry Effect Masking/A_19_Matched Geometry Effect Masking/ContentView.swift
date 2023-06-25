@@ -9,6 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @State var expandCard = false
+    @State var showContent: Bool = false
+    @Namespace var animation
+    
     var body: some View {
         VStack {
             // MARK: Header
@@ -61,7 +65,51 @@ struct ContentView: View {
         }
         .padding(15)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .background(Color("bg").ignoresSafeArea())
+        .background{Color("bg").ignoresSafeArea()}
+        .overlay(content: {
+            Rectangle()
+                .fill(.ultraThinMaterial)
+                .opacity(showContent ? 1 : 0)
+                .ignoresSafeArea()
+        })
+        .overlay(content: {
+            GeometryReader { proxy in
+                let size = proxy.size
+                if expandCard {
+                    // by padding 15 + 15 = 30
+                    GiftCard(size: size)
+                        .overlay(content: {
+                            // MARK: Lottie animation
+                            
+                        })
+                        .matchedGeometryEffect(id: "GIFTCARD", in: animation)
+                        .transition(.asymmetric(insertion: .identity, removal: .offset(x: 1)))
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .onAppear {
+                            withAnimation(.easeInOut(duration: 0.35)) {
+                                showContent = true
+                            }
+                        }
+                }
+            }
+            .padding(30)
+        })
+        .overlay(alignment: .topTrailing, content: {
+            Button {
+                withAnimation(.easeInOut(duration: 0.35)) {
+                    showContent = false
+                }
+                withAnimation(.easeInOut(duration: 0.35).delay(0.1)) {
+                    expandCard = false
+                }
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.title2)
+                    .foregroundColor(.white)
+                    .padding(15)
+            }
+
+        })
         .preferredColorScheme(.dark)
     }
     
@@ -73,7 +121,10 @@ struct ContentView: View {
             let size = proxy.size
             ScratchCardView(pointSize: 60) {
                 // MARK: Gift Card
-                GiftCard(size: size)
+                if !expandCard {
+                    GiftCard(size: size)
+                        .matchedGeometryEffect(id: "GIFTCARD", in: animation)
+                }
             } overlay: {
                 Image("card")
                     .resizable()
@@ -81,7 +132,12 @@ struct ContentView: View {
                     .frame(width: size.width * 0.9, height: size.height * 0.9, alignment: .topLeading)
                     .clipShape(RoundedRectangle(cornerRadius: 15))
             } onFinish: {
-                debugPrint("Finished")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    withAnimation(.interactiveSpring(response: 0.6, dampingFraction: 0.7, blendDuration: 0.7)) {
+                        expandCard = true
+                        
+                    }
+                }
             }
             .frame(width: size.width, height: size.height, alignment: .center)
 

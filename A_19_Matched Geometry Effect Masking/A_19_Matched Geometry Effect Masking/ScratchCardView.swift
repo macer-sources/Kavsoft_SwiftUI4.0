@@ -35,6 +35,7 @@ struct ScratchCardView<Content: View, Overlay: View>: View {
             let size = proxy.size
             ZStack {
                 overlay
+                    .opacity(disableGesture ? 0 : 1)
                 
                 content
                     .mask {
