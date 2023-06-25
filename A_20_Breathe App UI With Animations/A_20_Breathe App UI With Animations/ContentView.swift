@@ -10,10 +10,13 @@ import SwiftUI
 struct ContentView: View {
     
     @State var current: BreatheType = sample_datas[0]
+    @Namespace var animation
     
     var body: some View {
         ZStack {
             Background()
+            
+            Content()
         }
     }
     
@@ -51,6 +54,117 @@ struct ContentView: View {
                 }
         }
         .ignoresSafeArea()
+    }
+    
+    
+    @ViewBuilder
+    func Content() -> some View {
+        VStack {
+            HStack {
+                Text("Breathe")
+                    .font(.largeTitle.bold())
+                    .foregroundColor(.white)
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Button {
+                    
+                } label: {
+                    Image(systemName: "suit.heart")
+                        .font(.title2)
+                        .foregroundColor(.white)
+                        .frame(width: 42, height: 42)
+                        .background {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(.ultraThinMaterial)
+                        }
+                }
+
+            }
+            .padding()
+            
+            GeometryReader { proxy in
+                let size = proxy.size
+                
+                VStack {
+                    BreatheView(size: size)
+                    
+                    Text("Breathe to reduce")
+                        .font(.title3)
+                        .foregroundColor(.white)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 12) {
+                            ForEach(sample_datas) { type in
+                                Text(type.title)
+                                    .foregroundColor(current.id == type.id ?.black :.white)
+                                    .padding(.vertical, 10)
+                                    .padding(.horizontal, 15)
+                                    .background {
+                                        ZStack {
+                                            if current.id == type.id {
+                                                RoundedRectangle(cornerRadius: 10)
+                                                    .fill(.white)
+                                                    .matchedGeometryEffect(id: "TAB", in: animation)
+                                            }else {
+                                                RoundedRectangle(cornerRadius: 10)
+                                                    .stroke(.white.opacity(0.5))
+                                            }
+                                        }
+                                    }
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        withAnimation(.easeInOut(duration: 0.25)) {
+                                            current = type
+                                        }
+                                    }
+                            }
+                        }
+                        .padding()
+                        .padding(.leading, 25)
+                    }
+                    
+                    Button {
+                        
+                    } label: {
+                        Text("START")
+                            .fontWeight(.semibold)
+                            .foregroundColor(.black)
+                            .padding(.vertical, 15)
+                            .frame(maxWidth: .infinity)
+                            .background {
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(current.color.gradient)
+                            }
+                    }
+                    .padding()
+
+                }
+                .frame(width: size.width, height: size.height, alignment: .bottom)
+            }
+            
+        }
+        .frame(maxHeight: .infinity, alignment: .top)
+    }
+    
+    
+    
+    @ViewBuilder
+    func BreatheView(size: CGSize) -> some View  {
+        // MARK: 动画 使用 8 个圆，
+        ZStack {
+            ForEach(1...8,id: \.self) { index in
+                Circle()
+                    .fill(current.color.gradient.opacity(0.5))
+                    .frame(width: 150, height: 150)
+                    // 150 / 2
+                    .offset(x: 75)
+                    // 45 * 8 = 360
+                    .rotationEffect(.init(degrees: Double(index) * 45))
+            }
+        }
+        .frame(height: size.width - 40)
+        
     }
     
 }
