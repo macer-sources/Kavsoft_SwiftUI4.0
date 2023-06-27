@@ -12,15 +12,27 @@ struct ContentView: View {
     
     @State var current:Tab = .home
     @Namespace var animation
+    
+    
+    // MARK: Carousel properties
+    @State var currentIndex: Int = 0
     var body: some View {
         VStack {
            HeaderView()
             SearchView()
             
             // Custom Carousel
-            GeometryReader { proxy in
+            CustomCarousel(index: $currentIndex, items: sample_datas, id: \.id) { movie,cardsize in
+                // MARK: CUstom Cell View
                 
+                Image(movie.artwork)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: cardsize.width, height: cardsize.height)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
             }
+            .padding(.horizontal, -15)
+            .padding(.vertical)
             
             TabBar()
         }
