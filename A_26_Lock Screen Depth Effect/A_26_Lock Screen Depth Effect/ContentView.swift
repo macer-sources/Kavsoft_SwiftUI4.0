@@ -27,8 +27,16 @@ struct ContentView: View {
                     // and applying scaling only for the image
                         .scaleEffect(viewModel.scale)
                         .overlay {
-                            TimeView()
-                                .environmentObject(viewModel)
+                            if let detectedPerson = viewModel.detectedPerson {
+                                TimeView()
+                                    .environmentObject(viewModel)
+                                
+                                // MARK: Placing over the normal image
+                                Image(uiImage: detectedPerson)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .scaleEffect(viewModel.scale)
+                            }
                         }
                 }
                 
@@ -50,6 +58,7 @@ struct ContentView: View {
             Button("Cancel") {
                 withAnimation {
                     viewModel.compressedImage = nil
+                    viewModel.detectedPerson = nil
                 }
             }
             .font(.caption)
