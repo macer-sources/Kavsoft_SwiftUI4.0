@@ -8,20 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		AB8060542A4BDF9400BD4D39 /* A_26_Lock_Screen_Depth_EffectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8060532A4BDF9400BD4D39 /* A_26_Lock_Screen_Depth_EffectApp.swift */; };
-		AB8060562A4BDF9400BD4D39 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8060552A4BDF9400BD4D39 /* ContentView.swift */; };
+		AB8060562A4BDF9400BD4D39 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8060552A4BDF9400BD4D39 /* Home.swift */; };
 		AB8060582A4BDF9500BD4D39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB8060572A4BDF9500BD4D39 /* Assets.xcassets */; };
 		AB80605B2A4BDF9500BD4D39 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB80605A2A4BDF9500BD4D39 /* Preview Assets.xcassets */; };
 		AB8060622A4BDFD300BD4D39 /* LockScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8060612A4BDFD300BD4D39 /* LockScreenViewModel.swift */; };
 		AB8060652A4BE32300BD4D39 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = AB8060642A4BE32300BD4D39 /* SDWebImageSwiftUI */; };
+		AB8060672A4C0E6C00BD4D39 /* CustomColorFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8060662A4C0E6C00BD4D39 /* CustomColorFinderView.swift */; };
+		AB80606B2A4C0F5A00BD4D39 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB80606A2A4C0F5A00BD4D39 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AB8060502A4BDF9400BD4D39 /* A_26_Lock Screen Depth Effect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "A_26_Lock Screen Depth Effect.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB8060532A4BDF9400BD4D39 /* A_26_Lock_Screen_Depth_EffectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = A_26_Lock_Screen_Depth_EffectApp.swift; sourceTree = "<group>"; };
-		AB8060552A4BDF9400BD4D39 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AB8060552A4BDF9400BD4D39 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		AB8060572A4BDF9500BD4D39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB80605A2A4BDF9500BD4D39 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AB8060612A4BDFD300BD4D39 /* LockScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenViewModel.swift; sourceTree = "<group>"; };
+		AB8060662A4C0E6C00BD4D39 /* CustomColorFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColorFinderView.swift; sourceTree = "<group>"; };
+		AB80606A2A4C0F5A00BD4D39 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,10 +60,12 @@
 			isa = PBXGroup;
 			children = (
 				AB8060532A4BDF9400BD4D39 /* A_26_Lock_Screen_Depth_EffectApp.swift */,
-				AB8060552A4BDF9400BD4D39 /* ContentView.swift */,
+				AB8060552A4BDF9400BD4D39 /* Home.swift */,
+				AB8060662A4C0E6C00BD4D39 /* CustomColorFinderView.swift */,
 				AB8060612A4BDFD300BD4D39 /* LockScreenViewModel.swift */,
 				AB8060572A4BDF9500BD4D39 /* Assets.xcassets */,
 				AB8060592A4BDF9500BD4D39 /* Preview Content */,
+				AB80606A2A4C0F5A00BD4D39 /* ContentView.swift */,
 			);
 			path = "A_26_Lock Screen Depth Effect";
 			sourceTree = "<group>";
@@ -149,8 +155,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB8060622A4BDFD300BD4D39 /* LockScreenViewModel.swift in Sources */,
-				AB8060562A4BDF9400BD4D39 /* ContentView.swift in Sources */,
+				AB80606B2A4C0F5A00BD4D39 /* ContentView.swift in Sources */,
+				AB8060562A4BDF9400BD4D39 /* Home.swift in Sources */,
 				AB8060542A4BDF9400BD4D39 /* A_26_Lock_Screen_Depth_EffectApp.swift in Sources */,
+				AB8060672A4C0E6C00BD4D39 /* CustomColorFinderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
