@@ -21,6 +21,11 @@ struct ContentView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: size.width, height: size.height)
+                    // if we apply scale to whole view then the time view
+                    // will be stretching
+                    // that's why we added gesture to the root view
+                    // and applying scaling only for the image
+                        .scaleEffect(viewModel.scale)
                         .overlay {
                             TimeView()
                                 .environmentObject(viewModel)
@@ -58,6 +63,22 @@ struct ContentView: View {
             .padding()
             .opacity(viewModel.compressedImage == nil ? 0 : 1)
         }
+        
+        .gesture(
+            MagnificationGesture(minimumScaleDelta: 0.01)
+                .onChanged({ value in
+                    viewModel.scale = value + viewModel.lastScale
+                })
+                .onEnded({ value in
+                    if viewModel.scale < 1 {
+                        withAnimation(.easeInOut(duration: 0.15)) {
+                            viewModel.scale = 1
+                        }
+                    }
+                    // excluding the main scale 1
+                    viewModel.lastScale = viewModel.scale - 1
+                })
+        )
         
     }
 }

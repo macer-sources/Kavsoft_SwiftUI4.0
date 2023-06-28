@@ -34,6 +34,12 @@ class LockScreenViewModel: ObservableObject {
             }
         }
     }
+    
+    
+    // MARK: Scaling Properties
+    @Published var scale: CGFloat = 1
+    @Published var lastScale: CGFloat = 0
+    
 }
 
 
