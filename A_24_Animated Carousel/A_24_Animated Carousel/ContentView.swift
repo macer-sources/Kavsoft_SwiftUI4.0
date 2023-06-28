@@ -17,12 +17,24 @@ struct ContentView: View {
     // MARK: Carousel properties
     @State var currentIndex: Int = 0
     var body: some View {
-        VStack {
+        VStack(spacing: 15) {
            HeaderView()
+            
             SearchView()
             
+            (
+                Text("Featured")
+                    .fontWeight(.semibold)
+                +
+                Text(" Movies")
+            )
+            .font(.title2)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.top, 15)
+            .foregroundColor(.white)
+            
             // Custom Carousel
-            CustomCarousel(index: $currentIndex, items: sample_datas, id: \.id) { movie,cardsize in
+            CustomCarousel(index: $currentIndex, items: sample_datas,cardPadding: 150 ,id: \.id) { movie,cardsize in
                 // MARK: CUstom Cell View
                 
                 Image(movie.artwork)
@@ -40,7 +52,30 @@ struct ContentView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background {
             GeometryReader { proxy in
-                LinearGradient.init(colors: [Color("bg_top"),Color("bg_bottom")], startPoint: .top, endPoint: .bottom)
+                ZStack {
+                    let size = proxy.size
+                    TabView(selection: $currentIndex) {
+                        ForEach(sample_datas.indices, id: \.self) { index in
+                            Image(sample_datas[index].artwork)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: size.width, height: size.height)
+                                .clipped()
+                                .tag(index)
+                            
+                        }
+                    }
+                    
+                    .frame(width: size.width, height: size.height)
+                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    .animation(.easeInOut, value: currentIndex)
+                    
+                    Rectangle()
+                        .fill(.ultraThinMaterial)
+                    
+                    LinearGradient.init(colors: [.clear,Color("bg_top"),Color("bg_bottom")], startPoint: .top, endPoint: .bottom)
+                    
+                }
             }
             .ignoresSafeArea()
         }
