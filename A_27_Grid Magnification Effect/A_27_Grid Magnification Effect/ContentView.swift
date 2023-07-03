@@ -36,9 +36,20 @@ struct ContentView: View {
                             let scale = itemScale(rect: rect, size: size)
                             
                             
+                            // MARK: Instead of manual calculation
+                            // 通过使用 CGAffineTransform 实现3d⚽️效果，
+                            let transformedRect = rect.applying(.init(scaleX: scale, y: scale))
+                            
+                            let transformedLocation = location.applying(.init(scaleX: scale, y: scale))
+                            
+                            
                             RoundedRectangle(cornerRadius: 4)
                                 .fill(.orange)
                                 .scaleEffect(scale)
+                            // MARK: For Effect 1
+                            // 我们需要将每个项目重新定位到当前 draaging 的位置
+                                .offset(x: (transformedRect.minX - rect.minX), y: (transformedRect.minY - rect.minY))
+                                .offset(x: location.x - transformedLocation.x, y: location.y - transformedLocation.y)
                         }
                         .padding(5)
                         .frame(height: width)
