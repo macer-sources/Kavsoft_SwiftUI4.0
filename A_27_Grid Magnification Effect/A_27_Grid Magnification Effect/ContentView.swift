@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @GestureState var location: CGPoint = .zero
+    
     var body: some View {
         GeometryReader { proxy in
             let size = proxy.size
@@ -17,23 +20,62 @@ struct ContentView: View {
             // Multiplying each row count
             let itemCount = Int((size.height / width).rounded()) * 10
             
-            // TODO: 10 列
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 0), count: 10), spacing: 0) {
-                ForEach(0..<itemCount,id: \.self) { _ in
-                    GeometryReader { innerProxy in
-                        RoundedRectangle(cornerRadius: 4)
-                            .fill(.orange)
+            LinearGradient(colors: [
+                .cyan,
+                .yellow,
+                .mint,
+                .pink,
+                .purple
+            ], startPoint: .topLeading, endPoint: .bottomTrailing)
+            .mask {
+                // TODO: 10 列
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 0), count: 10), spacing: 0) {
+                    ForEach(0..<itemCount,id: \.self) { _ in
+                        GeometryReader { innerProxy in
+                            let rect = innerProxy.frame(in: .named("GESTURE"))
+                            let scale = itemScale(rect: rect, size: size)
+                            
+                            
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(.orange)
+                                .scaleEffect(scale)
+                        }
+                        .padding(5)
+                        .frame(height: width)
                     }
-                    .padding(5)
-                    .frame(height: width)
                 }
             }
-            
         }
         .padding(15)
+        .gesture(DragGesture(minimumDistance: 0 ).updating($location, body: { value, out, _ in
+            out = value.location
+        }))
+        .coordinateSpace(name: "GESTURE")
         .preferredColorScheme(.dark)
+        .animation(.easeInOut, value: location == .zero)
     }
 }
+
+extension ContentView {
+    // MARK: Calculating scale for each item with the help of pythagorean theorem(借助勾股定理计算每个item的尺度)
+    func itemScale(rect: CGRect, size: CGSize) -> CGFloat {
+        let a = location.x - rect.minX
+        let b = location.y - rect.minY
+        
+        let root = sqrt((a * a) + (b * b))
+        let diagonalValue = sqrt((size.width * size.width) + (size.height * size.height))
+        
+        // MARK: 有关更多详细信息，查看
+        let scale = root / (diagonalValue / 2)
+        let modifiedScale = location == .zero ?  1 : (1 - scale)
+        
+        // MARK: 避免快速转换警告
+        return modifiedScale >  0 ? modifiedScale : 0.001
+    }
+}
+
+
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
