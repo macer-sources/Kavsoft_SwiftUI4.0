@@ -45,11 +45,13 @@ struct ContentView: View {
                             
                             RoundedRectangle(cornerRadius: 4)
                                 .fill(.orange)
-                                .scaleEffect(scale)
+//                                .scaleEffect(scale)
                             // MARK: For Effect 1
                             // 我们需要将每个项目重新定位到当前 draaging 的位置
                                 .offset(x: (transformedRect.minX - rect.minX), y: (transformedRect.minY - rect.minY))
                                 .offset(x: location.x - transformedLocation.x, y: location.y - transformedLocation.y)
+                            // MARK: effect 2 实现，调整scaleEffect位置
+                                .scaleEffect(scale)
                         }
                         .padding(5)
                         .frame(height: width)
