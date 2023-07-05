@@ -25,7 +25,12 @@ struct Home: View {
                 }
             }
             
-            
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack {
+                    HeaderView()
+                }
+                .padding(15)
+            }
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
@@ -120,7 +125,56 @@ extension Home {
     }
 }
 
+// MARK: Header View
+extension Home {
+    @ViewBuilder
+    func HeaderView() -> some View {
+        // MARK: Dynamic Layout (ios 16+)
+        let layout = props.isiPad && !props.isMaxSplit ? AnyLayout(HStackLayout()) : AnyLayout(VStackLayout(spacing: 22))
+        
+        layout {
+            VStack(alignment: .leading,spacing: 8) {
+                Text("Seattle, New York")
+                    .font(.title2)
+                    .fontWeight(.heavy)
+                
+                Text(Date().formatted(date: .abbreviated, time: .omitted))
+                    .font(.caption)
+                    .foregroundColor(.gray)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
+            // MARK: Search Bar with menu button
+            HStack(spacing: 10) {
+                if !(props.isiPad && !props.isMaxSplit) {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "line.3.horizontal")
+                            .font(.title2)
+                            .foregroundColor(.black)
+                    }
+                    
+                    TextField("Search", text: .constant(""))
+                    
+                    Image(systemName: "magnifyingglass")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 22, height: 22)
 
+                }
+            }
+            .padding(.horizontal, 15)
+            .padding(.vertical, 10)
+            .background {
+                Capsule()
+                    .fill(.white)
+            }
+            
+            
+        }
+    }
+}
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
