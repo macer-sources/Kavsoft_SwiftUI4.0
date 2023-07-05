@@ -25,6 +25,7 @@ struct Home: View {
                 .frame(height: 350)
                 .padding(.top, -50)
                 .padding(.bottom, -15)
+                .zIndex(-10)
             
             CustomSeeker()
             
@@ -119,9 +120,37 @@ extension Home {
                 }
         }
         .frame(height: 20)
+        .onChange(of: offset, perform: { newValue in
+            rotateObject(animation: offset == .zero)
+        })
         .animation(.easeInOut(duration: 0.4), value: offset == .zero)
     }
 }
+
+
+extension Home {
+    // MARK: Rotating 3D Object Properamatically
+    func rotateObject(animation: Bool = false) {
+        
+        if animation {
+            SCNTransaction.begin()
+            SCNTransaction.animationDuration = 0.4
+        }
+        
+        let newAngle = Float((offset * .pi) / 180)
+        if isVerticalLook {
+            scene?.rootNode.eulerAngles.x = newAngle
+        }else {
+            scene?.rootNode.eulerAngles.y = newAngle
+        }
+      
+        
+        if animation {
+            SCNTransaction.commit()
+        }
+    }
+}
+
 
 
 extension Home {
