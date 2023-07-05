@@ -15,6 +15,8 @@ struct Home: View {
     @State var currentSize: String = "9"
     @Namespace var animation
     
+    @GestureState var offset: CGFloat = 0
+    
     var body: some View {
         VStack {
             HeaderView()
@@ -89,6 +91,7 @@ extension Home {
                     .clear,
                     .clear
                 ], startPoint: .leading, endPoint: .trailing), style: .init(lineWidth: 2, lineCap: .round, lineJoin: .round, miterLimit: 1, dash: [3], dashPhase: 1))
+                .offset(x: offset)
                 .overlay {
                     // MARK: Seeker View
                     HStack(spacing: 3) {
@@ -105,9 +108,18 @@ extension Home {
                             .fill(.white)
                     }
                     .offset(y: -12)
+                    .offset(x: offset)
+                    .gesture(
+                        DragGesture()
+                            .updating($offset, body: { value, out, _ in
+                                // 减小旋钮的尺寸，假设总尺寸为 40，因此减小 40/2 = 20
+                                out = value.location.x - 20
+                            })
+                    )
                 }
         }
         .frame(height: 20)
+        .animation(.easeInOut(duration: 0.4), value: offset == .zero)
     }
 }
 
