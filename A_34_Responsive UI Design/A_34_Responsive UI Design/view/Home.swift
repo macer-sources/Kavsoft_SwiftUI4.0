@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Charts
 
 struct Home: View {
     
@@ -31,6 +32,14 @@ struct Home: View {
                 VStack {
                     HeaderView()
                     InfoCards()
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 20) {
+                            GraphView()
+                            PieChartView()
+                        }
+                        .padding(.horizontal, 15)
+                    }
+                    .padding(.horizontal, -15)
                 }
                 .padding(15)
             }
@@ -250,6 +259,116 @@ extension Home {
     }
 }
 
+
+// MARK: Graph View
+extension Home {
+    @ViewBuilder
+    func GraphView() -> some View {
+        VStack(alignment: .leading,spacing: 15) {
+            Text("Daily Sales")
+                .font(.title3.bold())
+            Chart {
+                ForEach(sample_sales) { sale in
+                    // MARK: Area Mark for gradient bg
+                    AreaMark(x: .value("Time", sale.time), y: .value("Sale", sale.sales))
+                        .interpolationMethod(.catmullRom)
+                        .foregroundStyle(.linearGradient(colors: [
+                            .orange.opacity(0.6),
+                            .orange.opacity(0.5),
+                            .orange.opacity(0.3),
+                            .orange.opacity(0.1),
+                            .clear
+                        ], startPoint: .top, endPoint: .bottom))
+                    
+                    // MARK: Line Mark
+                    LineMark(x: .value("Time", sale.time), y: .value("Sale", sale.sales))
+                        .interpolationMethod(.catmullRom)
+                        .foregroundStyle(.orange)
+                    
+                    PointMark(x: .value("Time", sale.time), y: .value("Sale", sale.sales))
+                        .foregroundStyle(.orange)
+                }
+            }
+            .frame(height: 180)
+        }
+        .padding(15)
+        .background {
+            RoundedRectangle(cornerRadius: 15)
+                .fill(.white)
+        }
+        .frame(minWidth: props.size.width - 30)
+    }
+}
+
+
+extension Home {
+    @ViewBuilder
+    func PieChartView() -> some View {
+        VStack(alignment: .leading,spacing: 15) {
+            Text("Total Income")
+                .font(.title2.bold())
+            
+            ZStack {
+                Circle()
+                    .trim(from: 0.5, to: 1)
+                    .stroke(.green,style: StrokeStyle(lineWidth: 15, lineCap: .round, lineJoin: .round))
+                Circle()
+                    .trim(from: 0.2, to: 0.5)
+                    .stroke(.red,style: StrokeStyle(lineWidth: 15, lineCap: .round, lineJoin: .round))
+                
+                Circle()
+                    .trim(from: 0, to: 0.2)
+                    .stroke(.yellow,style: StrokeStyle(lineWidth: 15, lineCap: .round, lineJoin: .round))
+                
+                Text("$200K")
+                    .font(.title)
+                    .fontWeight(.heavy)
+            }
+            .padding(10)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+            
+            HStack(spacing: 15) {
+                Label {
+                    Text("Food")
+                        .font(.caption)
+                        .foregroundColor(.black)
+                } icon: {
+                    Image(systemName: "circle.fill")
+                        .font(.caption2)
+                        .foregroundColor(.green)
+                }
+                
+                Label {
+                    Text("Drink")
+                        .font(.caption)
+                        .foregroundColor(.black)
+                } icon: {
+                    Image(systemName: "circle.fill")
+                        .font(.caption2)
+                        .foregroundColor(.red)
+                }
+                
+                Label {
+                    Text("Others")
+                        .font(.caption)
+                        .foregroundColor(.black)
+                } icon: {
+                    Image(systemName: "circle.fill")
+                        .font(.caption2)
+                        .foregroundColor(.yellow)
+                }
+
+            }
+        }
+        .padding(15)
+        .frame(width: 250, height: 250)
+        .background {
+            RoundedRectangle(cornerRadius: 15)
+                .fill(.white)
+        }
+    }
+}
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
