@@ -16,7 +16,17 @@ struct Home: View {
     var body: some View {
         HStack(spacing: 0) {
             
-            SideBar()
+            if props.isiPad {
+                ViewThatFits {
+                    SideBar()
+                    ScrollView(.vertical, showsIndicators: false) {
+                        SideBar()
+                    }
+                }
+            }
+            
+            
+            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         .background {
