@@ -19,11 +19,17 @@ struct Home: View {
     var body: some View {
         HStack(spacing: 0) {
             
-            if props.isiPad {
+            if props.isAdoptable {
                 ViewThatFits {
                     SideBar()
                     ScrollView(.vertical, showsIndicators: false) {
                         SideBar()
+                    }
+                    .background(Color.white.ignoresSafeArea())
+                }
+                .onAppear {
+                    withAnimation {
+                        showSideBar = false
                     }
                 }
             }
@@ -182,7 +188,7 @@ extension Home {
             
             // MARK: Search Bar with menu button
             HStack(spacing: 10) {
-                if !(props.isiPad && !props.isMaxSplit) {
+                if !props.isAdoptable {
                     Button {
                         withAnimation {
                             showSideBar.toggle()
@@ -298,7 +304,8 @@ extension Home {
             RoundedRectangle(cornerRadius: 15)
                 .fill(.white)
         }
-        .frame(minWidth: props.size.width - 30)
+        // MARK: 130 -> side bar(100) + padding(30) + piecharview(250) + spacing(20)
+        .frame(minWidth: props.isAdoptable ? props.size.width - 400 :  props.size.width - 30)
     }
 }
 
@@ -382,8 +389,8 @@ extension Home {
                 .font(.title3.bold())
                 .padding(.bottom)
             
-            let isAdoptable = props.isiPad && !props.isMaxSplit
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20), count: isAdoptable ? 2 : 1),spacing: isAdoptable ? 20 : 15) {
+            
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20), count: props.isAdoptable ? 2 : 1),spacing: props.isAdoptable ? 20 : 15) {
                 ForEach(sample_trendings) { item  in
                     HStack(spacing: 15) {
                         Image(item.image)
@@ -411,6 +418,7 @@ extension Home {
                             .fontWeight(.semibold)
 
                         }
+                        .lineLimit(1)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
