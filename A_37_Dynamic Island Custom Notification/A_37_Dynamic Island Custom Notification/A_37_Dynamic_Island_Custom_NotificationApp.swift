@@ -79,9 +79,33 @@ struct NotificationPreview: View {
     @Binding var allNotifications:[NotificationValue]
     var body: some View {
         HStack {
+            // MARK: Custom UI
+            Image("Logo")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 60, height: 60)
+                .clipShape(RoundedRectangle(cornerRadius: 15))
             
+            VStack(alignment: .leading,spacing: 8) {
+                Text(value.content.title)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+                
+                Text(value.content.body)
+                    .font(.caption)
+                    .foregroundColor(.white)
+            }
+            .lineLimit(1)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .frame(width: value.showNotification ? size.width - 22 :  126, height: value.showNotification ? 100 :  37.33)
+        
+        .padding(10)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 18)
+        .blur(radius: value.showNotification ? 0 : 30)
+        .opacity(value.showNotification ? 1 : 0)
+        .scaleEffect(value.showNotification ? 1 : 0.5, anchor: .top)
+        .frame(width: value.showNotification ? size.width - 22 :  126, height: value.showNotification ? nil :  37.33)
         .background {
             RoundedRectangle(cornerRadius: value.showNotification ? 50 : 63)
                 .fill(.black)
@@ -89,20 +113,35 @@ struct NotificationPreview: View {
         .offset(y: 11)
         .animation(.interactiveSpring(response: 0.6, dampingFraction: 0.7, blendDuration: 0.7), value: value.showNotification)
         // MARK: Auto close after some time
+        .clipped()
         .onChange(of: value.showNotification, perform: { newValue in
             if newValue && allNotifications.indices.contains(index) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.8) {
-                    allNotifications[index].showNotification = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                        allNotifications.remove(at: index)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    if allNotifications.indices.contains(index + 1) {
+                        allNotifications[index + 1].showNotification = true
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
+                        allNotifications[index].showNotification = false
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            if allNotifications.indices.contains(index + 1) {
+                                allNotifications[index + 1].showNotification = true
+                            }
+                        }
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                            allNotifications.remove(at: index)
+                        }
                     }
                 }
             }
         })
         .onAppear {
             // MARK: Animating when a new notification
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                allNotifications[index].showNotification = true
+            if index == 0 {
+                DispatchQueue.main.asyncAfter(deadline: .now()) {
+                    allNotifications[index].showNotification = true
+                }
             }
         }
     }
