@@ -28,6 +28,7 @@ struct Home: View {
                 }
             }
             
+            // TODO: 内容
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
                     HeaderView()
@@ -40,6 +41,8 @@ struct Home: View {
                         .padding(.horizontal, 15)
                     }
                     .padding(.horizontal, -15)
+                    
+                    TrendingView()
                 }
                 .padding(15)
             }
@@ -189,15 +192,14 @@ extension Home {
                             .font(.title2)
                             .foregroundColor(.black)
                     }
-                    
-                    TextField("Search", text: .constant(""))
-                    
-                    Image(systemName: "magnifyingglass")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 22, height: 22)
-
                 }
+                
+                TextField("Search", text: .constant(""))
+                
+                Image(systemName: "magnifyingglass")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 22, height: 22)
             }
             .padding(.horizontal, 15)
             .padding(.vertical, 10)
@@ -369,6 +371,70 @@ extension Home {
         }
     }
 }
+
+
+// MARK: Trending Items View
+extension Home {
+    @ViewBuilder
+    func TrendingView() -> some View {
+        VStack(alignment: .leading, spacing: 15) {
+            Text("Trending Dishes")
+                .font(.title3.bold())
+                .padding(.bottom)
+            
+            let isAdoptable = props.isiPad && !props.isMaxSplit
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20), count: isAdoptable ? 2 : 1),spacing: isAdoptable ? 20 : 15) {
+                ForEach(sample_trendings) { item  in
+                    HStack(spacing: 15) {
+                        Image(item.image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 35, height: 35)
+                            .padding(10)
+                            .background {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color.orange.opacity(0.1))
+                            }
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text(item.title)
+                                .fontWeight(.bold)
+                                .lineLimit(1)
+                            
+                            Label {
+                                Text(item.title)
+                                    .foregroundColor(.orange)
+                            } icon: {
+                                Text("\(item.subTitle):")
+                                    .foregroundColor(.gray)
+                            }
+                            .font(.callout)
+                            .fontWeight(.semibold)
+
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .overlay(alignment: .topTrailing) {
+            Button("View All") {}
+                .font(.caption)
+                .fontWeight(.semibold)
+                .foregroundColor(.orange)
+                .offset(y: 6)
+        }
+        .padding(15)
+        .background {
+            RoundedRectangle(cornerRadius: 15)
+                .fill(.white)
+        }
+        .padding(.top, 10)
+
+    }
+}
+
+
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
