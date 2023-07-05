@@ -11,6 +11,7 @@
 		AB0015E62A557A5800E77506 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0015E52A557A5800E77506 /* ContentView.swift */; };
 		AB0015E82A557A5800E77506 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB0015E72A557A5800E77506 /* Assets.xcassets */; };
 		AB0015EB2A557A5800E77506 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB0015EA2A557A5800E77506 /* Preview Assets.xcassets */; };
+		AB0015F32A557C3600E77506 /* NotificationValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0015F22A557C3600E77506 /* NotificationValue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		AB0015E52A557A5800E77506 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AB0015E72A557A5800E77506 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB0015EA2A557A5800E77506 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AB0015F22A557C3600E77506 /* NotificationValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationValue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,7 @@
 		AB0015E22A557A5800E77506 /* A_37_Dynamic Island Custom Notification */ = {
 			isa = PBXGroup;
 			children = (
+				AB0015F12A557C2A00E77506 /* model */,
 				AB0015E32A557A5800E77506 /* A_37_Dynamic_Island_Custom_NotificationApp.swift */,
 				AB0015E52A557A5800E77506 /* ContentView.swift */,
 				AB0015E72A557A5800E77506 /* Assets.xcassets */,
@@ -65,6 +68,14 @@
 				AB0015EA2A557A5800E77506 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AB0015F12A557C2A00E77506 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				AB0015F22A557C3600E77506 /* NotificationValue.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB0015E62A557A5800E77506 /* ContentView.swift in Sources */,
+				AB0015F32A557C3600E77506 /* NotificationValue.swift in Sources */,
 				AB0015E42A557A5800E77506 /* A_37_Dynamic_Island_Custom_NotificationApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
