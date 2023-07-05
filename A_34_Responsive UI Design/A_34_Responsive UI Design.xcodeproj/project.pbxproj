@@ -11,6 +11,11 @@
 		AB0015712A55412100E77506 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0015702A55412100E77506 /* ContentView.swift */; };
 		AB0015732A55412200E77506 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB0015722A55412200E77506 /* Assets.xcassets */; };
 		AB0015762A55412200E77506 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB0015752A55412200E77506 /* Preview Assets.xcassets */; };
+		AB0015802A5541AD00E77506 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB00157F2A5541AD00E77506 /* Info.swift */; };
+		AB0015822A55431D00E77506 /* Trending.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0015812A55431D00E77506 /* Trending.swift */; };
+		AB0015842A5543C000E77506 /* Sale.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0015832A5543C000E77506 /* Sale.swift */; };
+		AB0015862A55447100E77506 /* ResponsiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0015852A55447100E77506 /* ResponsiveView.swift */; };
+		AB0015882A55469A00E77506 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0015872A55469A00E77506 /* Home.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +24,11 @@
 		AB0015702A55412100E77506 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AB0015722A55412200E77506 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB0015752A55412200E77506 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AB00157F2A5541AD00E77506 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
+		AB0015812A55431D00E77506 /* Trending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trending.swift; sourceTree = "<group>"; };
+		AB0015832A5543C000E77506 /* Sale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sale.swift; sourceTree = "<group>"; };
+		AB0015852A55447100E77506 /* ResponsiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponsiveView.swift; sourceTree = "<group>"; };
+		AB0015872A55469A00E77506 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +61,9 @@
 		AB00156D2A55412100E77506 /* A_34_Responsive UI Design */ = {
 			isa = PBXGroup;
 			children = (
+				AB00157E2A55419F00E77506 /* components */,
+				AB00157D2A55419B00E77506 /* model */,
+				AB00157C2A55418F00E77506 /* view */,
 				AB00156E2A55412100E77506 /* A_34_Responsive_UI_DesignApp.swift */,
 				AB0015702A55412100E77506 /* ContentView.swift */,
 				AB0015722A55412200E77506 /* Assets.xcassets */,
@@ -65,6 +78,32 @@
 				AB0015752A55412200E77506 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AB00157C2A55418F00E77506 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				AB0015872A55469A00E77506 /* Home.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		AB00157D2A55419B00E77506 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				AB0015812A55431D00E77506 /* Trending.swift */,
+				AB0015832A5543C000E77506 /* Sale.swift */,
+				AB00157F2A5541AD00E77506 /* Info.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		AB00157E2A55419F00E77506 /* components */ = {
+			isa = PBXGroup;
+			children = (
+				AB0015852A55447100E77506 /* ResponsiveView.swift */,
+			);
+			path = components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +176,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB0015822A55431D00E77506 /* Trending.swift in Sources */,
+				AB0015802A5541AD00E77506 /* Info.swift in Sources */,
+				AB0015862A55447100E77506 /* ResponsiveView.swift in Sources */,
 				AB0015712A55412100E77506 /* ContentView.swift in Sources */,
+				AB0015842A5543C000E77506 /* Sale.swift in Sources */,
 				AB00156F2A55412100E77506 /* A_34_Responsive_UI_DesignApp.swift in Sources */,
+				AB0015882A55469A00E77506 /* Home.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
