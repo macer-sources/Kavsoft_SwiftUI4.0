@@ -30,6 +30,7 @@ struct Home: View {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
                     HeaderView()
+                    InfoCards()
                 }
                 .padding(15)
             }
@@ -200,6 +201,55 @@ extension Home {
         }
     }
 }
+
+
+extension Home {
+    @ViewBuilder
+    func InfoCards() -> some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 18) {
+                ForEach(sample_infos, id: \.self) { info in
+                    VStack(alignment: .leading, spacing: 18) {
+                        HStack(spacing: 15) {
+                            Text(info.title)
+                                .font(.title3.bold())
+                            Spacer()
+                            HStack(spacing: 8) {
+                                Image(systemName: info.loss ? "arrow.down": "arrow.up")
+                                Text("\(info.percentage)%")
+                            }
+                            .font(.caption)
+                            .fontWeight(.semibold)
+                            .foregroundColor(info.loss ? .red : .gray)
+                        }
+                        
+                        HStack(spacing: 18) {
+                            Image(systemName: info.icon)
+                                .font(.title3)
+                                .foregroundColor(.white)
+                                .frame(width: 45, height: 45)
+                                .background {
+                                    Circle()
+                                        .fill(info.iconColor)
+                                }
+                            Text(info.amount)
+                                .font(.title.bold())
+                                
+                        }
+                    }
+                    .padding()
+                    .background {
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(.white)
+                    }
+                }
+            }
+            .padding(15)
+        }
+        .padding(.horizontal, -15)
+    }
+}
+
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {

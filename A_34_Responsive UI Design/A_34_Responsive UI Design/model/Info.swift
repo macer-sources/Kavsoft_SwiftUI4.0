@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Info: Identifiable {
+struct Info: Identifiable, Hashable {
     var id = UUID().uuidString
     var title: String
     var amount: String
