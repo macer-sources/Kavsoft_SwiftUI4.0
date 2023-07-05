@@ -1,0 +1,372 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AB0002392A542C3500E77506 /* A_33_3D_3D_Shoe_App_UI_SceneKitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0002382A542C3500E77506 /* A_33_3D_3D_Shoe_App_UI_SceneKitApp.swift */; };
+		AB00023B2A542C3500E77506 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB00023A2A542C3500E77506 /* ContentView.swift */; };
+		AB00023D2A542C3600E77506 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB00023C2A542C3600E77506 /* Assets.xcassets */; };
+		AB0002402A542C3600E77506 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB00023F2A542C3600E77506 /* Preview Assets.xcassets */; };
+		AB0002472A542CE700E77506 /* sneaker_airforce.scn in Resources */ = {isa = PBXBuildFile; fileRef = AB0002462A542CE700E77506 /* sneaker_airforce.scn */; };
+		AB00024A2A542D0700E77506 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0002492A542D0700E77506 /* Home.swift */; };
+		AB00024D2A542D3200E77506 /* CustomSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB00024C2A542D3200E77506 /* CustomSceneView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AB0002352A542C3500E77506 /* A_33_3D 3D Shoe App UI SceneKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "A_33_3D 3D Shoe App UI SceneKit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB0002382A542C3500E77506 /* A_33_3D_3D_Shoe_App_UI_SceneKitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = A_33_3D_3D_Shoe_App_UI_SceneKitApp.swift; sourceTree = "<group>"; };
+		AB00023A2A542C3500E77506 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AB00023C2A542C3600E77506 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AB00023F2A542C3600E77506 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AB0002462A542CE700E77506 /* sneaker_airforce.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = sneaker_airforce.scn; sourceTree = "<group>"; };
+		AB0002492A542D0700E77506 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		AB00024C2A542D3200E77506 /* CustomSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSceneView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AB0002322A542C3500E77506 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AB00022C2A542C3500E77506 = {
+			isa = PBXGroup;
+			children = (
+				AB0002372A542C3500E77506 /* A_33_3D 3D Shoe App UI SceneKit */,
+				AB0002362A542C3500E77506 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AB0002362A542C3500E77506 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AB0002352A542C3500E77506 /* A_33_3D 3D Shoe App UI SceneKit.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AB0002372A542C3500E77506 /* A_33_3D 3D Shoe App UI SceneKit */ = {
+			isa = PBXGroup;
+			children = (
+				AB00024B2A542D2500E77506 /* Components */,
+				AB0002482A542CFB00E77506 /* View */,
+				AB0002462A542CE700E77506 /* sneaker_airforce.scn */,
+				AB0002382A542C3500E77506 /* A_33_3D_3D_Shoe_App_UI_SceneKitApp.swift */,
+				AB00023A2A542C3500E77506 /* ContentView.swift */,
+				AB00023C2A542C3600E77506 /* Assets.xcassets */,
+				AB00023E2A542C3600E77506 /* Preview Content */,
+			);
+			path = "A_33_3D 3D Shoe App UI SceneKit";
+			sourceTree = "<group>";
+		};
+		AB00023E2A542C3600E77506 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				AB00023F2A542C3600E77506 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AB0002482A542CFB00E77506 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AB0002492A542D0700E77506 /* Home.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AB00024B2A542D2500E77506 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AB00024C2A542D3200E77506 /* CustomSceneView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AB0002342A542C3500E77506 /* A_33_3D 3D Shoe App UI SceneKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB0002432A542C3600E77506 /* Build configuration list for PBXNativeTarget "A_33_3D 3D Shoe App UI SceneKit" */;
+			buildPhases = (
+				AB0002312A542C3500E77506 /* Sources */,
+				AB0002322A542C3500E77506 /* Frameworks */,
+				AB0002332A542C3500E77506 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "A_33_3D 3D Shoe App UI SceneKit";
+			productName = "A_33_3D 3D Shoe App UI SceneKit";
+			productReference = AB0002352A542C3500E77506 /* A_33_3D 3D Shoe App UI SceneKit.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AB00022D2A542C3500E77506 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					AB0002342A542C3500E77506 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+				};
+			};
+			buildConfigurationList = AB0002302A542C3500E77506 /* Build configuration list for PBXProject "A_33_3D 3D Shoe App UI SceneKit" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AB00022C2A542C3500E77506;
+			productRefGroup = AB0002362A542C3500E77506 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AB0002342A542C3500E77506 /* A_33_3D 3D Shoe App UI SceneKit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AB0002332A542C3500E77506 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB0002402A542C3600E77506 /* Preview Assets.xcassets in Resources */,
+				AB00023D2A542C3600E77506 /* Assets.xcassets in Resources */,
+				AB0002472A542CE700E77506 /* sneaker_airforce.scn in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AB0002312A542C3500E77506 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB00024D2A542D3200E77506 /* CustomSceneView.swift in Sources */,
+				AB00023B2A542C3500E77506 /* ContentView.swift in Sources */,
+				AB00024A2A542D0700E77506 /* Home.swift in Sources */,
+				AB0002392A542C3500E77506 /* A_33_3D_3D_Shoe_App_UI_SceneKitApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AB0002412A542C3600E77506 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AB0002422A542C3600E77506 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AB0002442A542C3600E77506 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"A_33_3D 3D Shoe App UI SceneKit/Preview Content\"";
+				DEVELOPMENT_TEAM = 8PVXGGTSPW;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yonglekeji.A-33-3D-3D-Shoe-App-UI-SceneKit";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AB0002452A542C3600E77506 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"A_33_3D 3D Shoe App UI SceneKit/Preview Content\"";
+				DEVELOPMENT_TEAM = 8PVXGGTSPW;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yonglekeji.A-33-3D-3D-Shoe-App-UI-SceneKit";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AB0002302A542C3500E77506 /* Build configuration list for PBXProject "A_33_3D 3D Shoe App UI SceneKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB0002412A542C3600E77506 /* Debug */,
+				AB0002422A542C3600E77506 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AB0002432A542C3600E77506 /* Build configuration list for PBXNativeTarget "A_33_3D 3D Shoe App UI SceneKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB0002442A542C3600E77506 /* Debug */,
+				AB0002452A542C3600E77506 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AB00022D2A542C3500E77506 /* Project object */;
+}
