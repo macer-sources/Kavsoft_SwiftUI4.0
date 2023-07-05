@@ -12,6 +12,8 @@ struct Home: View {
     @State var currentTab: String = "Home"
     @Namespace var animation
     
+    @State var showSideBar: Bool = false
+    
     var props: Properties
     var body: some View {
         HStack(spacing: 0) {
@@ -38,6 +40,27 @@ struct Home: View {
             Color.black
                 .opacity(0.04)
                 .ignoresSafeArea()
+        }
+        .overlay(alignment: .leading) {
+            // MARK: Side Bar For Non iPad Devices
+            ViewThatFits {
+                SideBar()
+                ScrollView(.vertical, showsIndicators: false) {
+                    SideBar()
+                }
+            }
+            .offset(x: showSideBar ? 0 : -100)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background {
+                Color.black
+                    .opacity(showSideBar ? 0.25: 0)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        withAnimation {
+                            showSideBar.toggle()
+                        }
+                    }
+            }
         }
     }
 }
@@ -148,7 +171,9 @@ extension Home {
             HStack(spacing: 10) {
                 if !(props.isiPad && !props.isMaxSplit) {
                     Button {
-                        
+                        withAnimation {
+                            showSideBar.toggle()
+                        }
                     } label: {
                         Image(systemName: "line.3.horizontal")
                             .font(.title2)
