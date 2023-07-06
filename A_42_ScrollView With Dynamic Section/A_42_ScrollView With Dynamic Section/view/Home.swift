@@ -36,6 +36,9 @@ struct Home: View {
         })
         .onAppear {
             characters = fetchingCharacters()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                characterElevation()
+            }
         }
     }
     
@@ -52,14 +55,25 @@ struct Home: View {
                             let origin = innerProxy.frame(in: .named("SCROLLER"))
                             Text(char.value)
                                 .font(.callout)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.gray)
+                                .fontWeight(char.isCurrent ? .bold : .semibold)
+                                .foregroundColor(char.isCurrent ?  .black : .gray)
+                                .scaleEffect(char.isCurrent ? 1.4 : 0.8)
+                                .contentTransition(.interpolate)
                                 .frame(width: origin.size.width, height: origin.size.height, alignment: .trailing)
                                 .overlay {
                                     Rectangle()
                                         .fill(.gray)
                                         .frame(width: 15, height: 0.8)
                                         .offset(x: 35)
+                                }
+                                .offset(x: char.pushOffset)
+                                .animation(.easeInOut(duration: 0.2), value: char.pushOffset)
+                                .animation(.easeInOut(duration: 0.2), value: char.isCurrent)
+                                .onAppear {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                        // MARK: Storing origin
+                                        char.rect = origin
+                                    }
                                 }
                                 
                         }
@@ -105,15 +119,72 @@ struct Home: View {
                     .onChanged({ value in
                         // MARK: Setting location
                         var translation = value.location.y
+                        // TODO: 这里考虑了 knob size
                         translation = min(translation, rect.maxY - 20)
                         translation = max(translation, rect.minY)
                         
                         offsetY = translation
+                        
+                        characterElevation()
                     })
                     .onEnded({ value in
                         
                     })
             )
+    }
+    
+    
+    // MARK: Checking For Character Elevation When Gesture is Started
+    func characterElevation() {
+        if let index = characters.firstIndex(where: { char in
+            char.rect.contains(CGPoint.init(x: 0, y: offsetY))
+        }) {
+            
+            // MARK: modified indices array
+            var modifiedIndicies:[Int] = []
+            
+            // MARK: Updating Side Offset
+            characters[index].pushOffset = -35
+            characters[index].isCurrent = true
+            modifiedIndicies.append(index)
+            
+            // MARK: Updating top and bottom 3 offset's in order to create a curve animation
+            let otherOffsets:[CGFloat] = [-25,-15,5]
+            // 可以自定义
+            for index_ in otherOffsets.indices {
+                // eg index + 1, index +2, index +3
+                let newIndex = index + (index_ + 1)
+                // MARK: Top Indexes (negative)
+                // eg index - 1, index - 2, index - 3
+                let newIndex_negative = index - (index_ + 1)
+                
+                if verifyAndUpdate(index: newIndex, offset: otherOffsets[index_]) {
+                    modifiedIndicies.append(newIndex)
+                }
+                
+                if verifyAndUpdate(index: newIndex_negative, offset: otherOffsets[index_]) {
+                    modifiedIndicies.append(newIndex_negative)
+                }
+            }
+            
+            // MARK: Setting remaining all characters offset to zero
+            for index_ in characters.indices {
+                if !modifiedIndicies.contains(index_) {
+                    characters[index_].pushOffset = 0
+                    characters[index_].isCurrent = false
+                }
+            }
+        }
+    }
+    
+    // MARK: Safety check
+    func verifyAndUpdate(index: Int, offset: CGFloat) -> Bool {
+        if characters.indices.contains(index) {
+            characters[index].pushOffset = offset
+            characters[index].isCurrent = false
+            return true
+        }
+        return false
     }
     
     
