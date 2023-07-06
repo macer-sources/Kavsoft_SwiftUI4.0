@@ -16,6 +16,9 @@ struct Home: View {
     @State var offsetY: CGFloat = 0
     
     @State var currentActiveIndex: Int = 0
+    @State var startOffset: CGFloat = 0
+    
+    @State var isDrag: Bool = false
     var body: some View {
         NavigationStack {
             ScrollViewReader(content: {proxy in
@@ -32,12 +35,19 @@ struct Home: View {
                 }
                 .onChange(of: currentActiveIndex) { newValue in
                     // MARK: Scrolling to current index
-                    withAnimation {
-                        proxy.scrollTo(currentActiveIndex, anchor: .top)
+                    if isDrag {
+                        withAnimation {
+                            proxy.scrollTo(currentActiveIndex, anchor: .top)
+                        }
                     }
                 }
             })
             .navigationTitle("Contact's")
+            .offset { offsetRect in
+                if offsetRect.minY != startOffset {
+                    startOffset = offsetRect.minY
+                }
+            }
         }
         
         .overlay(alignment: .trailing, content: {
@@ -126,6 +136,7 @@ struct Home: View {
                         out = true
                     })
                     .onChanged({ value in
+                        isDrag = true
                         // MARK: Setting location
                         var translation = value.location.y - 20
                         // TODO: 这里考虑了 knob size
@@ -137,6 +148,9 @@ struct Home: View {
                         characterElevation()
                     })
                     .onEnded({ value in
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                            isDrag = false
+                        }
                         // MARK: Setting to last character location
                         if characters.indices.contains(currentActiveIndex) {
                             withAnimation(.easeInOut(duration: 0.25)) {
@@ -153,44 +167,53 @@ struct Home: View {
         if let index = characters.firstIndex(where: { char in
             char.rect.contains(CGPoint.init(x: 0, y: offsetY))
         }) {
+            updateElevation(index: index)
+         
+        }
+    }
+    
+    
+    
+    // MARK: Reusable
+    func updateElevation(index: Int ) {
+        // MARK: modified indices array
+        var modifiedIndicies:[Int] = []
+        
+        // MARK: Updating Side Offset
+        characters[index].pushOffset = -35
+        characters[index].isCurrent = true
+        currentActiveIndex = index
+        modifiedIndicies.append(index)
+        
+        // MARK: Updating top and bottom 3 offset's in order to create a curve animation
+        let otherOffsets:[CGFloat] = [-25,-15,5]
+        // 可以自定义
+        for index_ in otherOffsets.indices {
+            // eg index + 1, index +2, index +3
+            let newIndex = index + (index_ + 1)
+            // MARK: Top Indexes (negative)
+            // eg index - 1, index - 2, index - 3
+            let newIndex_negative = index - (index_ + 1)
             
-            // MARK: modified indices array
-            var modifiedIndicies:[Int] = []
-            
-            // MARK: Updating Side Offset
-            characters[index].pushOffset = -35
-            characters[index].isCurrent = true
-            currentActiveIndex = index
-            modifiedIndicies.append(index)
-            
-            // MARK: Updating top and bottom 3 offset's in order to create a curve animation
-            let otherOffsets:[CGFloat] = [-25,-15,5]
-            // 可以自定义
-            for index_ in otherOffsets.indices {
-                // eg index + 1, index +2, index +3
-                let newIndex = index + (index_ + 1)
-                // MARK: Top Indexes (negative)
-                // eg index - 1, index - 2, index - 3
-                let newIndex_negative = index - (index_ + 1)
-                
-                if verifyAndUpdate(index: newIndex, offset: otherOffsets[index_]) {
-                    modifiedIndicies.append(newIndex)
-                }
-                
-                if verifyAndUpdate(index: newIndex_negative, offset: otherOffsets[index_]) {
-                    modifiedIndicies.append(newIndex_negative)
-                }
+            if verifyAndUpdate(index: newIndex, offset: otherOffsets[index_]) {
+                modifiedIndicies.append(newIndex)
             }
             
-            // MARK: Setting remaining all characters offset to zero
-            for index_ in characters.indices {
-                if !modifiedIndicies.contains(index_) {
-                    characters[index_].pushOffset = 0
-                    characters[index_].isCurrent = false
-                }
+            if verifyAndUpdate(index: newIndex_negative, offset: otherOffsets[index_]) {
+                modifiedIndicies.append(newIndex_negative)
+            }
+        }
+        
+        // MARK: Setting remaining all characters offset to zero
+        for index_ in characters.indices {
+            if !modifiedIndicies.contains(index_) {
+                characters[index_].pushOffset = 0
+                characters[index_].isCurrent = false
             }
         }
     }
+    
+    
     
     // MARK: Safety check
     func verifyAndUpdate(index: Int, offset: CGFloat) -> Bool {
@@ -227,6 +250,16 @@ struct Home: View {
             }
         }
         .padding(15)
+        .offset { offsetRect in
+            let minY = offsetRect.minY
+            let index = character.index
+            if minY > 20 && minY < startOffset && isDrag {
+                updateElevation(index: index)
+                withAnimation {
+                    offsetY = characters[index].rect.minY
+                }
+            }
+        }
     }
     
     // MARK: Fetching Characters
