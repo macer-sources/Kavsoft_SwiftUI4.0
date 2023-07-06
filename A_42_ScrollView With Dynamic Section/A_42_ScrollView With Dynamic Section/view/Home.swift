@@ -15,24 +15,34 @@ struct Home: View {
     @GestureState var isDragging: Bool = false
     @State var offsetY: CGFloat = 0
     
-    
+    @State var currentActiveIndex: Int = 0
     var body: some View {
         NavigationStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 0) {
-                    // MARK: Sample Contacts View
-                    ForEach(characters) { char in
-                        ContactsForCharacter(character: char)
+            ScrollViewReader(content: {proxy in
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(spacing: 0) {
+                        // MARK: Sample Contacts View
+                        ForEach(characters) { char in
+                            ContactsForCharacter(character: char)
+                                .id(char.index)
+                        }
+                    }
+                    .padding(.top, 15)
+                    .padding(.trailing, 100)
+                }
+                .onChange(of: currentActiveIndex) { newValue in
+                    // MARK: Scrolling to current index
+                    withAnimation {
+                        proxy.scrollTo(currentActiveIndex, anchor: .top)
                     }
                 }
-                .padding(.top, 15)
-                .padding(.trailing, 100)
-            }
+            })
             .navigationTitle("Contact's")
         }
         
         .overlay(alignment: .trailing, content: {
             CustomScroller()
+                .padding(.top, 35)
         })
         .onAppear {
             characters = fetchingCharacters()
@@ -89,7 +99,6 @@ struct Home: View {
                 }
             }
         }
-        .background(.red)
         .frame(width: 55)
         .coordinateSpace(name: "SCROLLER")
         .padding(.trailing, 10)
@@ -118,7 +127,7 @@ struct Home: View {
                     })
                     .onChanged({ value in
                         // MARK: Setting location
-                        var translation = value.location.y
+                        var translation = value.location.y - 20
                         // TODO: 这里考虑了 knob size
                         translation = min(translation, rect.maxY - 20)
                         translation = max(translation, rect.minY)
@@ -128,7 +137,12 @@ struct Home: View {
                         characterElevation()
                     })
                     .onEnded({ value in
-                        
+                        // MARK: Setting to last character location
+                        if characters.indices.contains(currentActiveIndex) {
+                            withAnimation(.easeInOut(duration: 0.25)) {
+                                offsetY = characters[currentActiveIndex].rect.minY
+                            }
+                        }
                     })
             )
     }
@@ -146,6 +160,7 @@ struct Home: View {
             // MARK: Updating Side Offset
             characters[index].pushOffset = -35
             characters[index].isCurrent = true
+            currentActiveIndex = index
             modifiedIndicies.append(index)
             
             // MARK: Updating top and bottom 3 offset's in order to create a curve animation
