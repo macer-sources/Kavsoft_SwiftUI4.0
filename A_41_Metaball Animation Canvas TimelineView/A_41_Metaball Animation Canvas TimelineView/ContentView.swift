@@ -12,10 +12,33 @@ struct ContentView: View {
     @State var dragOffset: CGSize = .zero
     @State var startAnimation: Bool = false
     
+    @State var type: String = "Single"
     
     var body: some View {
         VStack {
-            ClubbedView()
+            Text("Metaball Animations")
+                .font(.title)
+                .fontWeight(.semibold)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(15)
+            Picker(selection: $type) {
+                Text("Metaball")
+                    .tag("Single")
+                Text("Clubbed")
+                    .tag("Clubbed")
+                
+            } label: {
+
+            }
+            .pickerStyle(.segmented)
+            .padding(.horizontal, 15)
+            
+            if type == "Single" {
+                SingleMetaBall()
+            }else {
+                ClubbedView()
+            }
+
         }
         .preferredColorScheme(.dark)
     }
