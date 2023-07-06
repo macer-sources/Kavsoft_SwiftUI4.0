@@ -10,6 +10,12 @@ import SwiftUI
 struct Home: View {
     // MARK: View Properties
     @State var characters:[Character] = []
+    
+    // MARK: Gesture Properties
+    @GestureState var isDragging: Bool = false
+    @State var offsetY: CGFloat = 0
+    
+    
     var body: some View {
         NavigationStack {
             ScrollView(.vertical, showsIndicators: false) {
@@ -20,13 +26,97 @@ struct Home: View {
                     }
                 }
                 .padding(.top, 15)
+                .padding(.trailing, 100)
             }
             .navigationTitle("Contact's")
         }
+        
+        .overlay(alignment: .trailing, content: {
+            CustomScroller()
+        })
         .onAppear {
             characters = fetchingCharacters()
         }
     }
+    
+    
+    // MARK: Custom Scroll Bar
+    @ViewBuilder
+    func CustomScroller() -> some View {
+        GeometryReader { proxy in
+            let rect  = proxy.frame(in: .named("SCROLLER"))
+            VStack(spacing: 0) {
+                ForEach($characters) { $char in
+                    HStack(spacing: 15) {
+                        GeometryReader { innerProxy in
+                            let origin = innerProxy.frame(in: .named("SCROLLER"))
+                            Text(char.value)
+                                .font(.callout)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.gray)
+                                .frame(width: origin.size.width, height: origin.size.height, alignment: .trailing)
+                                .overlay {
+                                    Rectangle()
+                                        .fill(.gray)
+                                        .frame(width: 15, height: 0.8)
+                                        .offset(x: 35)
+                                }
+                                
+                        }
+                        .frame(width: 20)
+                        
+                        ZStack {
+                            if characters.first?.id == char.id {
+                                ScrollerKnob(char: $char, rect: rect)
+                            }
+                        }
+                        .frame(width: 20, height: 20)
+                    }
+                }
+            }
+        }
+        .background(.red)
+        .frame(width: 55)
+        .coordinateSpace(name: "SCROLLER")
+        .padding(.trailing, 10)
+        .padding(.vertical, 15)
+    }
+    
+    
+    
+    @ViewBuilder
+    func ScrollerKnob(char: Binding<Character>, rect: CGRect) -> some View {
+        Circle()
+            .fill(.black)
+            // MARK: Scaling Animation
+            .overlay(content: {
+                Circle()
+                    .fill(.white)
+                    .scaleEffect(isDragging ? 0.8 : 0.0001)
+            })
+            .scaleEffect(isDragging ? 1.35 : 1)
+            .animation(.easeInOut(duration: 0.2), value: isDragging)
+            .offset(y: offsetY)
+            .gesture(
+                DragGesture(minimumDistance: 5)
+                    .updating($isDragging, body: { value, out, _ in
+                        out = true
+                    })
+                    .onChanged({ value in
+                        // MARK: Setting location
+                        var translation = value.location.y
+                        translation = min(translation, rect.maxY - 20)
+                        translation = max(translation, rect.minY)
+                        
+                        offsetY = translation
+                    })
+                    .onEnded({ value in
+                        
+                    })
+            )
+    }
+    
+    
     
     // MARK: Contact Row For Each Alphabet
     @ViewBuilder
