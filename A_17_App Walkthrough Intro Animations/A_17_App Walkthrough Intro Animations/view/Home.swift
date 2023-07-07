@@ -9,6 +9,11 @@ import SwiftUI
 
 struct Home: View {
     @StateObject var viewModel = ExpenseViewModel()
+    // MARK: Spotlight properties
+    @State var showSpotlight: Bool = false
+    @State var currentSpot: Int = 0
+    
+    
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 12) {
@@ -38,6 +43,7 @@ struct Home: View {
                             .background(Color.white, in: RoundedRectangle(cornerRadius: 10))
                             .shadow(color: .black.opacity(0.1), radius: 5, x: 5, y: 5)
                     }
+                    .addSpotlight(0, shape: .rounded,roundedRadius: 10, text: "Expenses Filtering")
 
                 }
                 
@@ -50,6 +56,10 @@ struct Home: View {
         .background {
             Color("bg")
                 .ignoresSafeArea()
+        }
+        .addSpotlightOverlay(show: $showSpotlight, currentSpot: $currentSpot)
+        .onAppear {
+            showSpotlight = true
         }
     }
 }
@@ -68,7 +78,13 @@ extension Home {
             
             ForEach(sample_expenses) { expense in
                 // MARK: Transactions Card Item
-                TransactionsCardView(expense: expense).environmentObject(viewModel)
+                // Show Spotlight for first item
+                if expense.id == viewModel.expenses.first?.id {
+                    TransactionsCardView(expense: expense).environmentObject(viewModel)
+                        .addSpotlight(1, shape: .rounded,roundedRadius: 10, text: "Transactions Details")
+                }else {
+                    TransactionsCardView(expense: expense).environmentObject(viewModel)
+                }
             }
         }
     }

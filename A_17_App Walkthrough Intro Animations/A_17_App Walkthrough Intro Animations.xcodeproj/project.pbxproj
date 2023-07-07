@@ -15,6 +15,7 @@
 		AB0093472A57C10600E77506 /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0093412A57C10600E77506 /* Expense.swift */; };
 		AB0093482A57C10600E77506 /* TransactionsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0093432A57C10600E77506 /* TransactionsCardView.swift */; };
 		AB0093492A57C10600E77506 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0093452A57C10600E77506 /* Home.swift */; };
+		AB00934C2A57C24A00E77506 /* Spotlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB00934B2A57C24A00E77506 /* Spotlight.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		AB0093412A57C10600E77506 /* Expense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
 		AB0093432A57C10600E77506 /* TransactionsCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsCardView.swift; sourceTree = "<group>"; };
 		AB0093452A57C10600E77506 /* Home.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		AB00934B2A57C24A00E77506 /* Spotlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spotlight.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 		AB00932B2A57C09F00E77506 /* A_17_App Walkthrough Intro Animations */ = {
 			isa = PBXGroup;
 			children = (
+				AB00934A2A57C23800E77506 /* helpers */,
 				AB0093422A57C10600E77506 /* components */,
 				AB0093402A57C10600E77506 /* model */,
 				AB0093442A57C10600E77506 /* view */,
@@ -109,6 +112,14 @@
 				AB0093452A57C10600E77506 /* Home.swift */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		AB00934A2A57C23800E77506 /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				AB00934B2A57C24A00E77506 /* Spotlight.swift */,
+			);
+			path = helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,6 +197,7 @@
 				AB0093462A57C10600E77506 /* ExpenseViewModel.swift in Sources */,
 				AB0093482A57C10600E77506 /* TransactionsCardView.swift in Sources */,
 				AB0093492A57C10600E77506 /* Home.swift in Sources */,
+				AB00934C2A57C24A00E77506 /* Spotlight.swift in Sources */,
 				AB00932D2A57C09F00E77506 /* A_17_App_Walkthrough_Intro_AnimationsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
