@@ -54,23 +54,78 @@ struct SwipeCarousel<Content: View, ID, Item>: View where Item:RandomAccessColle
         self.trailingCards = trailingCards
     }
     
+    // MARK: Gesture properties
+    @GestureState var offset: CGFloat = 0
+    @State var currentIndex: Int = 0
+    
+    
     var body: some View {
         GeometryReader { proxy in
             let size = proxy.size
             
             ZStack {
                 ForEach(items) { item in
+                    let index = indexOf(item: item)
                     content(item, size)
                         .shadow(color: .black.opacity(0.25), radius: 5, x: 5, y: 5)
                         .scaleEffect(scaleFor(item: item))
                         .offset(x: offsetFor(item: item))
                         .rotationEffect(.init(degrees: rotationFor(item: item)), anchor: .topTrailing)
+                    // MARK: Only adding gesture value to the currentCard
+                        .offset(x: currentIndex == index ? offset : 0)
+                        .rotationEffect(.init(degrees: currentIndex == index ? rotationForGesture() : 0), anchor: .top)
+                        .scaleEffect(currentIndex == index ? scaleForGesture() :  1)
                         .zIndex(zIndex(item: item))
                 }
             }
+            .animation(.easeInOut(duration: 0.25), value: offset == .zero)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .gesture(
+                DragGesture()
+                    .updating($offset, body: { value, out, _ in
+                        out = (value.translation.width / size.width) * (size.width / 1.5)
+                    })
+                    .onEnded({ value in
+                        let translation = value.translation.width
+                        if translation > 0 {
+                            // MARK: Swipe right
+                            decreaseIndex(translation: translation)
+                        }else {
+                            // MARK: Swipe left
+                            increaseIndex(translation: translation)
+                        }
+                    })
+            )
         }
     }
+    
+    
+    // MARK: Swapping cards
+    func increaseIndex(translation: CGFloat) {
+        
+    }
+    func decreaseIndex(translation: CGFloat) {
+        
+    }
+    
+    
+    
+    
+    
+    
+    // MARK: Gesture based rotation and scaling values
+    func rotationForGesture() -> CGFloat {
+        let progress = (offset / UIDevice.screenSize.width)  * 30
+        return progress
+    }
+    func scaleForGesture() -> CGFloat {
+        // to avoid over sizing when it goes to negative
+        let progress = 1 - (offset > 0 ? offset : -offset) / UIDevice.screenSize.width
+        return progress > 0.75 ? progress : 0.75
+    }
+    
+    
+    
     
     
     
@@ -119,5 +174,15 @@ struct SwipeCarousel<Content: View, ID, Item>: View where Item:RandomAccessColle
         return 0
     }
     
+}
+
+
+extension UIDevice {
+    public static var screenSize: CGSize {
+        guard let window = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
+            return .zero
+        }
+        return window.screen.bounds.size
+    }
 }
 
