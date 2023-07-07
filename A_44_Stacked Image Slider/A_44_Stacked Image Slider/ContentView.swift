@@ -55,7 +55,8 @@ struct SwipeCarousel<Content: View, ID, Item>: View where Item:RandomAccessColle
     }
     
     // MARK: Gesture properties
-    @GestureState var offset: CGFloat = 0
+    @State var offset: CGFloat = 0
+    @State var showRight: Bool = false
     @State var currentIndex: Int = 0
     
     
@@ -67,6 +68,15 @@ struct SwipeCarousel<Content: View, ID, Item>: View where Item:RandomAccessColle
                 ForEach(items) { item in
                     
                     CardView(item: item, size: size)
+                    // MARK: if user starts swipe right
+                    // then we're going to showing the last swiped card as a overlay
+                        .overlay(content: {
+                            let index = indexOf(item: item)
+                            if (currentIndex + 1) == index && Array(items).indices.contains(currentIndex - 1) && showRight {
+                                CardView(item: Array(items)[currentIndex - 1], size: size)
+                                    .transition(.identity)
+                            }
+                        })
                         .zIndex(zIndex(item: item))
                 }
             }
@@ -74,8 +84,9 @@ struct SwipeCarousel<Content: View, ID, Item>: View where Item:RandomAccessColle
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .gesture(
                 DragGesture()
-                    .updating($offset, body: { value, out, _ in
-                        out = (value.translation.width / size.width) * (size.width / 1.2)
+                    .onChanged({ value in
+                        showRight = value.translation.width > 0
+                        offset = (value.translation.width / size.width) * (size.width / 1.2)
                     })
                     .onEnded({ value in
                         let translation = value.translation.width
@@ -85,6 +96,11 @@ struct SwipeCarousel<Content: View, ID, Item>: View where Item:RandomAccessColle
                         }else {
                             // MARK: Swipe left
                             increaseIndex(translation: translation)
+                        }
+                        
+                        withAnimation(.easeInOut(duration: 0.25)) {
+                            offset = .zero
+                            
                         }
                     })
             )
@@ -125,6 +141,10 @@ struct SwipeCarousel<Content: View, ID, Item>: View where Item:RandomAccessColle
         if translation > 0 , translation > 110 , currentIndex > 0 {
             withAnimation(.easeInOut(duration: 0.25)) {
                 currentIndex -= 1
+            }
+        }else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                showRight = false
             }
         }
     }
