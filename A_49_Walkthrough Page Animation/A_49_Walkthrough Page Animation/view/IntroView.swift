@@ -8,13 +8,20 @@
 import SwiftUI
 
 struct IntroView: View {
+    
+    // MARK: Animation Properties
+    @State var showWalkThroughScreens: Bool = false
+    
     var body: some View {
         ZStack {
             Color("bg")
                 .ignoresSafeArea()
             
             IntroScreen()
+            
+            NavBar()
         }
+        .animation(.interactiveSpring(response: 1.1, dampingFraction: 0.85, blendDuration: 0.85), value: showWalkThroughScreens)
     }
     
     
@@ -47,15 +54,42 @@ struct IntroView: View {
                             .fill(Color("blue"))
                     }
                     .onTapGesture {
-                        
+                        showWalkThroughScreens.toggle()
                     }
                     .padding(.top, 30)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            // MARK: Moving Up WHen Click
+            .offset(y: showWalkThroughScreens ? -size.height : 0)
         }
         .ignoresSafeArea()
     }
     
+    @ViewBuilder
+    func NavBar() -> some View {
+        HStack {
+            Button {
+                showWalkThroughScreens.toggle()
+            } label: {
+                Image(systemName: "chevron.left")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .foregroundColor(Color("blue"))
+            }
+            
+            Spacer()
+            
+            Button("Skip") {
+                
+            }
+            .font(.system(size: 14))
+            .foregroundColor(Color("blue"))
+        }
+        .padding(.horizontal, 15)
+        .padding(.top, 10)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .offset(y: showWalkThroughScreens ? 0 : -120)
+    }
 }
 
 struct IntroView_Previews: PreviewProvider {
