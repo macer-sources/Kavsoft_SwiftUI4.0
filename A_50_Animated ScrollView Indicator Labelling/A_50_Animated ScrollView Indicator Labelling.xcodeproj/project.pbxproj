@@ -1,0 +1,384 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AB850E322A5C00D000DE4D4C /* A_50_Animated_ScrollView_Indicator_LabellingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB850E312A5C00D000DE4D4C /* A_50_Animated_ScrollView_Indicator_LabellingApp.swift */; };
+		AB850E342A5C00D000DE4D4C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB850E332A5C00D000DE4D4C /* ContentView.swift */; };
+		AB850E362A5C00D100DE4D4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB850E352A5C00D100DE4D4C /* Assets.xcassets */; };
+		AB850E392A5C00D100DE4D4C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB850E382A5C00D100DE4D4C /* Preview Assets.xcassets */; };
+		AB850E432A5C00F300DE4D4C /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB850E422A5C00F300DE4D4C /* Home.swift */; };
+		AB850E462A5C015100DE4D4C /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB850E452A5C015100DE4D4C /* Character.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AB850E2E2A5C00D000DE4D4C /* A_50_Animated ScrollView Indicator Labelling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "A_50_Animated ScrollView Indicator Labelling.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB850E312A5C00D000DE4D4C /* A_50_Animated_ScrollView_Indicator_LabellingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = A_50_Animated_ScrollView_Indicator_LabellingApp.swift; sourceTree = "<group>"; };
+		AB850E332A5C00D000DE4D4C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AB850E352A5C00D100DE4D4C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AB850E382A5C00D100DE4D4C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AB850E422A5C00F300DE4D4C /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		AB850E452A5C015100DE4D4C /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AB850E2B2A5C00D000DE4D4C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AB850E252A5C00D000DE4D4C = {
+			isa = PBXGroup;
+			children = (
+				AB850E302A5C00D000DE4D4C /* A_50_Animated ScrollView Indicator Labelling */,
+				AB850E2F2A5C00D000DE4D4C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AB850E2F2A5C00D000DE4D4C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AB850E2E2A5C00D000DE4D4C /* A_50_Animated ScrollView Indicator Labelling.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AB850E302A5C00D000DE4D4C /* A_50_Animated ScrollView Indicator Labelling */ = {
+			isa = PBXGroup;
+			children = (
+				AB850E442A5C014A00DE4D4C /* model */,
+				AB850E412A5C00E900DE4D4C /* viewmodel */,
+				AB850E402A5C00E500DE4D4C /* components */,
+				AB850E3F2A5C00DF00DE4D4C /* view */,
+				AB850E312A5C00D000DE4D4C /* A_50_Animated_ScrollView_Indicator_LabellingApp.swift */,
+				AB850E332A5C00D000DE4D4C /* ContentView.swift */,
+				AB850E352A5C00D100DE4D4C /* Assets.xcassets */,
+				AB850E372A5C00D100DE4D4C /* Preview Content */,
+			);
+			path = "A_50_Animated ScrollView Indicator Labelling";
+			sourceTree = "<group>";
+		};
+		AB850E372A5C00D100DE4D4C /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				AB850E382A5C00D100DE4D4C /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AB850E3F2A5C00DF00DE4D4C /* view */ = {
+			isa = PBXGroup;
+			children = (
+				AB850E422A5C00F300DE4D4C /* Home.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		AB850E402A5C00E500DE4D4C /* components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = components;
+			sourceTree = "<group>";
+		};
+		AB850E412A5C00E900DE4D4C /* viewmodel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = viewmodel;
+			sourceTree = "<group>";
+		};
+		AB850E442A5C014A00DE4D4C /* model */ = {
+			isa = PBXGroup;
+			children = (
+				AB850E452A5C015100DE4D4C /* Character.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AB850E2D2A5C00D000DE4D4C /* A_50_Animated ScrollView Indicator Labelling */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB850E3C2A5C00D100DE4D4C /* Build configuration list for PBXNativeTarget "A_50_Animated ScrollView Indicator Labelling" */;
+			buildPhases = (
+				AB850E2A2A5C00D000DE4D4C /* Sources */,
+				AB850E2B2A5C00D000DE4D4C /* Frameworks */,
+				AB850E2C2A5C00D000DE4D4C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "A_50_Animated ScrollView Indicator Labelling";
+			productName = "A_50_Animated ScrollView Indicator Labelling";
+			productReference = AB850E2E2A5C00D000DE4D4C /* A_50_Animated ScrollView Indicator Labelling.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AB850E262A5C00D000DE4D4C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					AB850E2D2A5C00D000DE4D4C = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+				};
+			};
+			buildConfigurationList = AB850E292A5C00D000DE4D4C /* Build configuration list for PBXProject "A_50_Animated ScrollView Indicator Labelling" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AB850E252A5C00D000DE4D4C;
+			productRefGroup = AB850E2F2A5C00D000DE4D4C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AB850E2D2A5C00D000DE4D4C /* A_50_Animated ScrollView Indicator Labelling */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AB850E2C2A5C00D000DE4D4C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB850E392A5C00D100DE4D4C /* Preview Assets.xcassets in Resources */,
+				AB850E362A5C00D100DE4D4C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AB850E2A2A5C00D000DE4D4C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB850E342A5C00D000DE4D4C /* ContentView.swift in Sources */,
+				AB850E432A5C00F300DE4D4C /* Home.swift in Sources */,
+				AB850E322A5C00D000DE4D4C /* A_50_Animated_ScrollView_Indicator_LabellingApp.swift in Sources */,
+				AB850E462A5C015100DE4D4C /* Character.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AB850E3A2A5C00D100DE4D4C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AB850E3B2A5C00D100DE4D4C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AB850E3D2A5C00D100DE4D4C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"A_50_Animated ScrollView Indicator Labelling/Preview Content\"";
+				DEVELOPMENT_TEAM = 8PVXGGTSPW;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yonglekeji.A-50-Animated-ScrollView-Indicator-Labelling";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AB850E3E2A5C00D100DE4D4C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"A_50_Animated ScrollView Indicator Labelling/Preview Content\"";
+				DEVELOPMENT_TEAM = 8PVXGGTSPW;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yonglekeji.A-50-Animated-ScrollView-Indicator-Labelling";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AB850E292A5C00D000DE4D4C /* Build configuration list for PBXProject "A_50_Animated ScrollView Indicator Labelling" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB850E3A2A5C00D100DE4D4C /* Debug */,
+				AB850E3B2A5C00D100DE4D4C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AB850E3C2A5C00D100DE4D4C /* Build configuration list for PBXNativeTarget "A_50_Animated ScrollView Indicator Labelling" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB850E3D2A5C00D100DE4D4C /* Debug */,
+				AB850E3E2A5C00D100DE4D4C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AB850E262A5C00D000DE4D4C /* Project object */;
+}
