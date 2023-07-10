@@ -20,6 +20,8 @@ struct Home: View {
     // MARK: Scrollview enddeclaration properties
     @State var timeOut: CGFloat = 0.3
     
+    
+    @State var currentCharacter: Character = .init(value: "")
     var body: some View {
         NavigationStack(root: {
             GeometryReader { proxy in
@@ -75,8 +77,14 @@ struct Home: View {
                                 .frame(width: 45, height: 45)
                                 .environment(\.colorScheme, .dark)
                                 .rotationEffect(.init(degrees: -90))
-                                .offset(x: hideIndicatorLabel ? 65 : 0)
-                                .animation(.interactiveSpring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.6), value: hideIndicatorLabel)
+                                .overlay(content: {
+                                    Text(currentCharacter.value)
+                                        .fontWeight(.black)
+                                        .foregroundColor(.white)
+                                        .offset(x: -3)
+                                })
+                                .offset(x: hideIndicatorLabel || currentCharacter.value == "" ? 65 : 0)
+                                .animation(.interactiveSpring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.6), value: hideIndicatorLabel || currentCharacter.value == "")
                                 
                         })
                         .padding(.trailing, 5)
@@ -136,6 +144,22 @@ extension Home {
                 }
             }
         }
+        .offset(completion: { rect in
+            // MARK: Verifying which section is at the top (near nav bar)
+            // updating character rect when ever it's updated
+            if characters.indices.contains(character.index) {
+                characters[character.index].rect = rect
+            }
+            // Since every character moves up and goes beyond zero (it will be like A, B,C,D)
+            // so we're taking the last character
+            
+            if let last = characters.last(where: {$0.rect.minY < 0}), last.id != currentCharacter.id {
+                currentCharacter = last
+                print(character.value)
+            }
+            
+            
+        })
         .padding(15)
     }
     
