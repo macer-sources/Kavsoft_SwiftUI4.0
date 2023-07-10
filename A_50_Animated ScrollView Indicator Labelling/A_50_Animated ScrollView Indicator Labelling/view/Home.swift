@@ -9,23 +9,58 @@ import SwiftUI
 
 struct Home: View {
     @State var characters:[Character] = []
+    @State var scrollerHeight: CGFloat = 0
+    @State var indicatorOffset: CGFloat = 0
+    @State var startOffset: CGFloat = 0
     
     var body: some View {
         NavigationStack(root: {
-            ScrollViewReader(content: {proxy in
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack(spacing: 0) {
-                        // MARK: Sample Contacts View
-                        ForEach(characters) { char in
-                            ContactsForCharacter(character: char)
-                                .id(char.index)
+            GeometryReader { proxy in
+                let size = proxy.size
+                
+                ScrollViewReader(content: {proxy in
+                    ScrollView(.vertical, showsIndicators: false) {
+                        VStack(spacing: 0) {
+                            // MARK: Sample Contacts View
+                            ForEach(characters) { char in
+                                ContactsForCharacter(character: char)
+                                    .id(char.index)
+                            }
+                        }
+                        .padding(.top, 15)
+                        .padding(.trailing, 20)
+                        .offset { rect in
+                            // MARK: Finding scroll indicator height(rect scroll offset)
+                            let rectHeight = rect.height
+                            let viewHeight = size.height + (startOffset / 2)
+                            
+                            let scrollerHeight = (viewHeight / rectHeight) * viewHeight
+                            self.scrollerHeight = scrollerHeight
+                            
+                            // MARK: Finding scroll indicator offset
+                            let progress = rect.minY / (rectHeight - size.height)
+                            // MARK: Simply Multiply with view height (eliminating scroller height)
+                            self.indicatorOffset = -progress * (size.height - scrollerHeight)
                         }
                     }
-                    .padding(.top, 15)
-                    .padding(.trailing, 20)
+                })
+                .coordinateSpace(name: "SCROLLER")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .overlay(alignment: .topTrailing) {
+                    Rectangle()
+                        .fill(.red)
+                        .frame(width: 2, height: scrollerHeight)
+                        .padding(.trailing, 5)
+                        .offset(y: indicatorOffset)
+                    
                 }
-            })
+            }
             .navigationTitle("Contact's")
+            .offset { rect in
+                if startOffset != rect.minY {
+                    startOffset = rect.minY
+                }
+            }
         })
         .onAppear {
            characters = fetchingCharacters()
@@ -83,3 +118,32 @@ struct Home_Previews: PreviewProvider {
         Home()
     }
 }
+
+
+
+
+// MARK: Offset Reader
+extension View {
+    @ViewBuilder
+    func offset(completion:@escaping (CGRect) -> Void) -> some View {
+        self.overlay {
+            GeometryReader {
+                let rect = $0.frame(in: .named("SCROLLER"))
+                Color.clear
+                    .preference(key: OffsetKey.self, value: rect)
+                    .onPreferenceChange(OffsetKey.self) { value in
+                        completion(value)
+                    }
+            }
+        }
+    }
+}
+
+// MARK: Offset Key
+struct OffsetKey: PreferenceKey {
+    static var defaultValue: CGRect = .zero
+    static func reduce(value: inout CGRect, nextValue: () -> CGRect) {
+        value = nextValue()
+    }
+}
+
