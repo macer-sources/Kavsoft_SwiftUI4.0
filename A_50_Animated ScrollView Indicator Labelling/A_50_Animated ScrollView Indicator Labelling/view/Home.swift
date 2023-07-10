@@ -13,6 +13,13 @@ struct Home: View {
     @State var indicatorOffset: CGFloat = 0
     @State var startOffset: CGFloat = 0
     
+    
+    @State var hideIndicatorLabel: Bool = false
+    
+    
+    // MARK: Scrollview enddeclaration properties
+    @State var timeOut: CGFloat = 0.3
+    
     var body: some View {
         NavigationStack(root: {
             GeometryReader { proxy in
@@ -30,6 +37,14 @@ struct Home: View {
                         .padding(.top, 15)
                         .padding(.trailing, 20)
                         .offset { rect in
+                            // MARK: When Ever Scrolling Does
+                            // resetting time out
+                            if hideIndicatorLabel && rect.minY < 0 {
+                                timeOut = 0
+                                hideIndicatorLabel = false
+                            }
+                            
+                            
                             // MARK: Finding scroll indicator height(rect scroll offset)
                             let rectHeight = rect.height
                             let viewHeight = size.height + (startOffset / 2)
@@ -48,8 +63,22 @@ struct Home: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .overlay(alignment: .topTrailing) {
                     Rectangle()
-                        .fill(.red)
+                        .fill(.clear)
                         .frame(width: 2, height: scrollerHeight)
+                        .overlay(alignment: .trailing, content: {
+                            // MARK: Bulle Image
+                            Image(systemName: "bubble.middle.bottom.fill")
+                                .resizable()
+                                .renderingMode(.template)
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundStyle(.ultraThinMaterial)
+                                .frame(width: 45, height: 45)
+                                .environment(\.colorScheme, .dark)
+                                .rotationEffect(.init(degrees: -90))
+                                .offset(x: hideIndicatorLabel ? 65 : 0)
+                                .animation(.interactiveSpring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.6), value: hideIndicatorLabel)
+                                
+                        })
                         .padding(.trailing, 5)
                         .offset(y: indicatorOffset)
                     
@@ -64,6 +93,21 @@ struct Home: View {
         })
         .onAppear {
            characters = fetchingCharacters()
+        }
+        // MARK: I'm going to implement a custom scrollView end declaration with the help of the timer and offset values
+        .onReceive(Timer.publish(every: 0.01, on: .main, in: .default).autoconnect()) { value  in
+            
+            if timeOut < 0.3 {
+                timeOut += 0.01
+            }else {
+                // MARK: Scrolling is Finished
+                // it will fire many times so use some conditions here
+                if !hideIndicatorLabel {
+                    print("Scrolling is Finished")
+                    hideIndicatorLabel = true
+                }
+            }
+            
         }
     }
 }
