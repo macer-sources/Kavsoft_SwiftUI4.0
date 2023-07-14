@@ -13,7 +13,7 @@ struct ContentView: View {
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            VStack {
+            VStack(spacing: 12) {
                 HeaderView()
                     .padding(15)
                 
@@ -21,6 +21,7 @@ struct ContentView: View {
                     GooeyCell(model: sample)
                 }
             }
+            .padding(.vertical, 18)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background {
@@ -64,7 +65,40 @@ struct GooeyCell: View {
     var onDelete:() -> Void = {}
     var body: some View {
         HStack {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack {
+                    Image(model.logo)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 22, height: 22)
+                    Text(model.name)
+                        .font(.callout)
+                        .fontWeight(.semibold)
+                }
+                
+                Text(model.title)
+                    .foregroundColor(.black.opacity(0.8))
+                
+                Text(model.subTitle)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+            }
+            .lineLimit(1)
             
+            Spacer()
+            
+            Text("29 OTC")
+                .font(.callout)
+                .fontWeight(.semibold)
+                .foregroundColor(.green.opacity(0.7))
         }
+        .frame(maxWidth: .infinity,alignment: .leading)
+        .padding(.horizontal, 15)
+        .padding(.vertical, 10)
+        .background {
+            RoundedRectangle(cornerRadius: 15)
+                .fill(.white.opacity(0.7))
+        }
+        .padding(.horizontal, 15)
     }
 }
